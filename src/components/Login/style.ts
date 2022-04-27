@@ -13,8 +13,6 @@ export const LoginContainer = styled.div`
 
     .btn-submit {
       margin-top: 20px;
-      background-color: #4259ac;
-      color: #fff;
     }
   }
 `;

@@ -66,10 +66,12 @@ const LoginView: React.FC<Props> = ({ formik, signIn }) => {
 
         <div className="btn-login-wrapper">
           <button className="btn-third-login" onClick={signIn}>
-            <img src={GOOGLE_ICON} alt="" /> <div>Google</div>
+            <img src={GOOGLE_ICON} alt="" />
+            <div>Google</div>
           </button>
           <button className="btn-third-login">
-            <img src={FACEBOOK_ICON} alt="" /> <div>Facebook</div>
+            <img src={FACEBOOK_ICON} alt="" />
+            <div>Facebook</div>
           </button>
         </div>
       </div>

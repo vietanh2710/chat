@@ -103,15 +103,21 @@ export const CommonLayoutContainer = styled.div`
     }
 
     .btn-submit {
-      width: 100%;
+      cursor: pointer;
       border: none;
+      width: 100%;
       background-color: #fff;
       font-weight: 600;
       font-size: 16px;
       border: 1px solid;
       border-radius: 5px;
       padding: 15px;
-      cursor: pointer;
+      background-color: #4259ac;
+      color: #fff;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 
