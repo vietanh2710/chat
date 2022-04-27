@@ -1,5 +1,5 @@
 import React, { FC, memo, Suspense, lazy } from "react";
-import { useRoutes } from "react-router-dom";
+import { useRoutes, Navigate, Outlet } from "react-router-dom";
 
 import { Loading } from "components";
 import { ROUTES } from "common/constant";
@@ -12,7 +12,6 @@ const ForgotPassword = lazy(() => import("../components/ForgotPassword"));
 const Chat = lazy(() => import("../components/ChannelContainer"));
 
 const AppRoutes: FC = () => {
-  const loading = false;
   const user = localStorage.getItem("user");
   const isLogged = user ? JSON.parse(user) : false;
 
@@ -20,13 +19,21 @@ const AppRoutes: FC = () => {
     {
       path: ROUTES.HOME,
       element: (
-        <ProtectedRoutes condition={!isLogged} redirectTo={ROUTES.SIGNIN}>
+        <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.LOGIN}>
+          <CommonLayout />
+        </ProtectedRoutes>
+      ),
+    },
+    {
+      path: ROUTES.HOME,
+      element: (
+        <ProtectedRoutes condition={!isLogged} redirectTo={ROUTES.HOME}>
           <CommonLayout />
         </ProtectedRoutes>
       ),
       children: [
         {
-          path: ROUTES.SIGNIN,
+          path: ROUTES.LOGIN,
           element: <Login />,
         },
         {
@@ -42,7 +49,7 @@ const AppRoutes: FC = () => {
     {
       path: ROUTES.HOME,
       element: (
-        <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.SIGNIN}>
+        <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.LOGIN}>
           <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.CHAT}>
             <Chat />
           </ProtectedRoutes>
@@ -56,8 +63,6 @@ const AppRoutes: FC = () => {
       ],
     },
   ]);
-
-  if (loading) return <Loading />;
 
   return <Suspense fallback={<Loading />}>{element}</Suspense>;
 };

@@ -58,7 +58,6 @@ export const CommonLayoutContainer = styled.div`
 
     .error {
       color: #ff1e1e;
-      font-size: 12px;
     }
 
     .password {

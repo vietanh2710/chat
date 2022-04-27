@@ -13,7 +13,7 @@ const useForgotPassowrd = () => {
 
   const onSubmit = (params: InitialValues) => {
     formik.resetForm();
-    navigate(ROUTES.SIGNIN);
+    navigate(ROUTES.LOGIN);
   };
 
   const formik = useFormik({
@@ -21,7 +21,7 @@ const useForgotPassowrd = () => {
       email: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Field is requied !"),
+      email: Yup.string().required("Field is requied").email("Email in valid"),
     }),
     onSubmit: (values) => onSubmit(values),
   });

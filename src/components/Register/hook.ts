@@ -15,7 +15,7 @@ const useRegister = () => {
 
   const onSubmit = (params: InitialValues) => {
     formik.resetForm();
-    navigate(ROUTES.SIGNIN);
+    navigate(ROUTES.LOGIN);
   };
 
   const formik = useFormik({
@@ -25,11 +25,11 @@ const useRegister = () => {
       confirm_password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Field is requied !"),
-      password: Yup.string().required("Field is requied !"),
+      email: Yup.string().required("Field is requied").email("Email in valid"),
+      password: Yup.string().required("Field is requied"),
       confirm_password: Yup.string()
         .oneOf([Yup.ref("password")], "Password's not match")
-        .required("Required!"),
+        .required("Required"),
     }),
     onSubmit: (values) => onSubmit(values),
   });

@@ -9,7 +9,7 @@ const MenuLeft: FC = () => {
   const navigate = useNavigate();
   const onLogout = () => {
     localStorage.setItem("user", JSON.stringify(false));
-    navigate(ROUTES.SIGNIN);
+    navigate(ROUTES.LOGIN);
   };
 
   return (

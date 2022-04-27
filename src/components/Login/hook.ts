@@ -28,9 +28,9 @@ const useLogin = () => {
       password: "",
       remember: false,
     },
-    validationSchema: Yup.object({
-      email: Yup.string().required("Field is requied !"),
-      password: Yup.string().required("Field is requied !"),
+    validationSchema: Yup.object().shape({
+      email: Yup.string().required("Field is requied").email("Email in valid"),
+      password: Yup.string().required("Field is requied"),
     }),
     onSubmit: (values) => onSubmit(values),
   });

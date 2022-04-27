@@ -12,7 +12,7 @@ const RegisterView: FC<Props> = ({ formik }) => {
     <RegisterContainer>
       <div className="header">
         <div className="register-wrapper">
-          <Link to={ROUTES.SIGNIN}>
+          <Link to={ROUTES.LOGIN}>
             <img src={ARROW_LEFT_ICON} alt="" />
           </Link>
           <p className="title">Register</p>

@@ -8,5 +8,5 @@ export const ROUTES = {
   CHAT: "/chat",
   REGISTER: "/register",
   FORGOT_PASSWORD: "/forgot-password",
-  SIGNIN: "/signin",
+  LOGIN: "/login",
 };
