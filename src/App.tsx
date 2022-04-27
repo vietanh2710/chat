@@ -1,13 +1,13 @@
-import React from "react";
-import { Provider } from "react-redux";
+import React, { FC } from "react";
+// import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import "antd/dist/antd.css";
 
 import AppRoutes from "./routes";
-import store from "./store";
+// import store from "./store";
 import "./App.css";
 
-function App() {
+const App: FC = () => {
   return (
     <div className="app">
       {/* <Provider store={store}> */}
@@ -17,6 +17,6 @@ function App() {
       {/* </Provider> */}
     </div>
   );
-}
+};
 
 export default App;

@@ -4,7 +4,7 @@ import {
   MouseEvent,
   useState,
   useEffect,
-  useMemo,
+  FC,
 } from "react";
 import { IEmojiData } from "emoji-picker-react";
 import { useFormik } from "formik";
