@@ -10,3 +10,7 @@ export const ROUTES = {
   FORGOT_PASSWORD: "/forgot-password",
   LOGIN: "/login",
 };
+
+export const STATUS = {
+  CLOSE_POPUP_GOOGLE: "popup_closed_by_user",
+};

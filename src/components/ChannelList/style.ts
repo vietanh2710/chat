@@ -109,17 +109,20 @@ export const ChannelListContainer = styled(Col)`
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          max-width: 180px;
+          max-width: 150px;
         }
 
         .last-message {
           font-size: 13px;
           margin: 0;
           color: #858688;
-          max-width: 100px;
+          max-width: 150px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 

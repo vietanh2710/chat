@@ -23,18 +23,16 @@ const ForgotPassowrdView: FC<Props> = ({ formik }) => {
             <label className="text">Email Address</label>
             <input
               type="text"
-              className={`input ${formik.errors.email && "error"}`}
+              className={`input ${
+                formik.errors.email && formik.touched.email && "error"
+              }`}
               {...formik.getFieldProps("email")}
             />
-            {formik.errors.email && (
-              <p className="error">{formik.errors.email}</p>
+            {formik.errors.email && formik.touched.email && (
+              <p className="error-text">{formik.errors.email}</p>
             )}
 
-            <button
-              type="submit"
-              className="btn-submit"
-              disabled={!isEmpty(formik.errors)}
-            >
+            <button type="submit" className="btn-submit">
               Submit
             </button>
           </form>

@@ -1,14 +1,11 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 
-import authSlice from "./redux/slice/auth";
-
-const rootReducer = combineReducers({
-  [authSlice.name]: authSlice.reducer,
-});
+import authSlice from "./features/slice/auth";
 
 const store = configureStore({
-  reducer: rootReducer,
-  devTools: process.env.NODE_ENV === "development",
+  reducer: {
+    [authSlice.name]: authSlice.reducer,
+  },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 

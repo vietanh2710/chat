@@ -19,3 +19,10 @@ export interface ListUsers {
   userName: string;
   avt: string;
 }
+
+export interface User {
+  email: string;
+  avt?: string;
+  userName?: string;
+  fullName?: string;
+}

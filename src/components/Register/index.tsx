@@ -23,38 +23,43 @@ const RegisterView: FC<Props> = ({ formik }) => {
             <label className="text">Email Address</label>
             <input
               type="text"
-              className={`input ${formik.errors.email && "error"}`}
+              className={`input ${
+                formik.errors.email && formik.touched.email && "error"
+              }`}
               {...formik.getFieldProps("email")}
             />
-            {formik.errors.email && (
-              <p className="error">{formik.errors.email}</p>
+            {formik.errors.email && formik.touched.email && (
+              <p className="error-text">{formik.errors.email}</p>
             )}
 
             <label className="text">Password</label>
             <input
               type="text"
-              className={`input ${formik.errors.password && "error"}`}
+              className={`input ${
+                formik.errors.password && formik.touched.password && "error"
+              }`}
               {...formik.getFieldProps("password")}
             />
-            {formik.errors.password && (
-              <p className="error">{formik.errors.password}</p>
+            {formik.errors.password && formik.touched.password && (
+              <p className="error-text">{formik.errors.password}</p>
             )}
 
             <label className="text">Confirm password</label>
             <input
               type="text"
-              className={`input ${formik.errors.confirm_password && "error"}`}
+              className={`input ${
+                formik.errors.confirm_password &&
+                formik.touched.confirm_password &&
+                "error"
+              }`}
               {...formik.getFieldProps("confirm_password")}
             />
-            {formik.errors.confirm_password && (
-              <p className="error">{formik.errors.confirm_password}</p>
-            )}
+            {formik.errors.confirm_password &&
+              formik.touched.confirm_password && (
+                <p className="error-text">{formik.errors.confirm_password}</p>
+              )}
 
-            <button
-              type="submit"
-              className="btn-submit"
-              disabled={!isEmpty(formik.errors)}
-            >
+            <button type="submit" className="btn-submit">
               Register
             </button>
           </form>

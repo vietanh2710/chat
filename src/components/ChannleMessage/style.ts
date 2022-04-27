@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Col } from "antd";
 
 export const ChannelMessageContainer = styled(Col).attrs(
-  (props: { heightInput: number; heightContainer: number }) => props
+  (props: { heightInput: number }) => props
 )`
   position: relative;
 
@@ -40,9 +40,7 @@ export const ChannelMessageContainer = styled(Col).attrs(
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto;
-    /* height: ${(props: { heightContainer: number }) =>
-      `${props.heightContainer}px`}; */
-    height: 82vh;
+    height: calc(100vh - 85px - 87px);
 
     .time {
       display: block;

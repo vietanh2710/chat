@@ -1,13 +1,12 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import { isEmpty } from "lodash";
 
 import { ROUTES } from "common/constant";
 import useLogin, { Props } from "./hook";
 import { LoginContainer } from "./style";
 import { FACEBOOK_ICON, GOOGLE_ICON } from "assets";
 
-const LoginView: React.FC<Props> = ({ formik }) => {
+const LoginView: React.FC<Props> = ({ formik, signIn }) => {
   return (
     <LoginContainer>
       <div className="header">
@@ -23,11 +22,13 @@ const LoginView: React.FC<Props> = ({ formik }) => {
           <label className="text">Email Address</label>
           <input
             type="text"
-            className={`input ${formik.errors.email && "error"}`}
+            className={`input ${
+              formik.errors.email && formik.touched.email && "error"
+            }`}
             {...formik.getFieldProps("email")}
           />
-          {formik.errors.email && (
-            <p className="error">{formik.errors.email}</p>
+          {formik.errors.email && formik.touched.email && (
+            <p className="error-text">{formik.errors.email}</p>
           )}
 
           <div className="password">
@@ -35,11 +36,13 @@ const LoginView: React.FC<Props> = ({ formik }) => {
             <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?</Link>
             <input
               type="text"
-              className={`input ${formik.errors.password && "error"}`}
+              className={`input ${
+                formik.errors.password && formik.touched.password && "error"
+              }`}
               {...formik.getFieldProps("password")}
             />
-            {formik.errors.password && (
-              <p className="error">{formik.errors.password}</p>
+            {formik.errors.password && formik.touched.password && (
+              <p className="error-text">{formik.errors.password}</p>
             )}
           </div>
 
@@ -52,11 +55,7 @@ const LoginView: React.FC<Props> = ({ formik }) => {
             <label>Remeber me</label>
           </div>
 
-          <button
-            type="submit"
-            className="btn-submit"
-            disabled={!isEmpty(formik.errors)}
-          >
+          <button type="submit" className="btn-submit">
             Login
           </button>
         </form>
@@ -66,7 +65,7 @@ const LoginView: React.FC<Props> = ({ formik }) => {
         </div>
 
         <div className="btn-login-wrapper">
-          <button className="btn-third-login">
+          <button className="btn-third-login" onClick={signIn}>
             <img src={GOOGLE_ICON} alt="" /> <div>Google</div>
           </button>
           <button className="btn-third-login">

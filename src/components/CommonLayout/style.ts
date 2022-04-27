@@ -48,6 +48,10 @@ export const CommonLayoutContainer = styled.div`
         border: 1px solid #ff1e1e;
         margin-bottom: 5px;
         color: #000;
+
+        &:focus {
+          border: 1px solid #ff1e1e;
+        }
       }
 
       &:focus {
@@ -56,7 +60,7 @@ export const CommonLayoutContainer = styled.div`
       }
     }
 
-    .error {
+    .error-text {
       color: #ff1e1e;
     }
 

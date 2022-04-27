@@ -1,5 +1,5 @@
 import React, { FC, memo, Suspense, lazy } from "react";
-import { useRoutes, Navigate, Outlet } from "react-router-dom";
+import { useRoutes, Navigate, Outlet, Routes } from "react-router-dom";
 
 import { Loading } from "components";
 import { ROUTES } from "common/constant";
@@ -13,7 +13,7 @@ const Chat = lazy(() => import("../components/ChannelContainer"));
 
 const AppRoutes: FC = () => {
   const user = localStorage.getItem("user");
-  const isLogged = user ? JSON.parse(user) : false;
+  const isLogged = user ? JSON.parse(user).user : false;
 
   const element = useRoutes([
     {
@@ -61,6 +61,10 @@ const AppRoutes: FC = () => {
           element: <Chat />,
         },
       ],
+    },
+    {
+      path: "*",
+      element: <Navigate to={ROUTES.HOME} state={{ from: location }} replace />,
     },
   ]);
 

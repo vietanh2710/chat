@@ -1,9 +1,14 @@
 import { useFormik } from "formik";
 import { isEmpty } from "lodash";
-import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useGoogleLogin } from "react-google-login";
+import sha256 from "sha256";
+import * as Yup from "yup";
 
-import { ROUTES } from "common/constant";
+import { ROUTES, STATUS } from "common/constant";
+import { setLogin } from "../../features/slice/auth";
+import { handleActions } from "common/auth";
 
 type InitialValues = {
   email: string;
@@ -13,10 +18,18 @@ type InitialValues = {
 
 const useLogin = () => {
   const navigate = useNavigate();
+  const dispath = useDispatch();
 
-  const onSubmit = (params: InitialValues) => {
-    if (!isEmpty(params.email)) {
-      localStorage.setItem("user", JSON.stringify(true));
+  const onSubmit = (response: InitialValues) => {
+    if (!isEmpty(response.email)) {
+      handleActions({ accessToken: sha256(response.password), user: true });
+
+      dispath(
+        setLogin({
+          email: response.email,
+        })
+      );
+
       navigate(ROUTES.CHAT);
       formik.resetForm();
     }
@@ -35,8 +48,38 @@ const useLogin = () => {
     onSubmit: (values) => onSubmit(values),
   });
 
+  const responseGoogle = (response: any) => {
+    if (response?.error === STATUS.CLOSE_POPUP_GOOGLE) {
+      handleActions({ accessToken: "", user: false });
+    }
+
+    handleActions({ accessToken: response.accessToken, user: true });
+
+    dispath(
+      setLogin({
+        email: response.profileObj.email,
+        userName: response.profileObj.givenName,
+        fullName: response.profileObj.name,
+        avt: response.profileObj.imageUrl,
+      })
+    );
+    navigate(ROUTES.CHAT);
+  };
+
+  const { signIn, loaded } = useGoogleLogin({
+    clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID || "",
+    onSuccess: responseGoogle,
+    onFailure: responseGoogle,
+    cookiePolicy: "single_host_origin",
+    isSignedIn: false,
+    prompt: "consent",
+  });
+
   return {
     formik,
+    loaded,
+    signIn,
+    responseGoogle,
   };
 };
 

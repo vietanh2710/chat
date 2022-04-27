@@ -6,10 +6,12 @@
       "assets": ["./src/assets"],
       "types": ["./src/types"],
       "common/*": ["./src/common/*"],
+      "common": ["./src/common"],
       "helper/*": ["./src/helper/*"],
       "services/*": ["./src/services/*"],
+      "service": ["./src/services"],
       "routes/*": ["./src/routes/*"],
-      "redux/*": ["./src/redux/*"]
+      "features/*": ["./src/features/*"]
     }
   }
 }

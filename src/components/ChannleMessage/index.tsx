@@ -35,7 +35,6 @@ const ChannelMessageLayout: React.FC<Props> = ({
         <ChannelMessageContainer
           span={showTabInfor ? 13 : 18}
           heightInput={inputHeight}
-          heightContainer={window.innerHeight}
         >
           <div className="header" onClick={() => setEmoji(false)}>
             <img
