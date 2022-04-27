@@ -39,7 +39,10 @@ const ChannelList: FC<IProps> = ({ setCreateChannel }) => {
               <div className="item-wrapper">
                 <img src={item.channelImg} alt="" className="channel-image" />
                 <div className="preview">
-                  <div className="channel-name">{item.channelName}</div>
+                  <div>
+                    <div className="channel-name">{item.channelName}</div>
+                    <div className="active"></div>
+                  </div>
                   <div className="last-message">{item.lastMessage}</div>
                 </div>
               </div>

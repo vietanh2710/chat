@@ -113,6 +113,7 @@ export const ChannelMessageContainer = styled(Col).attrs(
           margin-left: 10px;
           font-size: 15px;
           margin-right: 50px;
+          cursor: auto;
         }
       }
 

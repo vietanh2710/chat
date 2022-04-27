@@ -87,6 +87,18 @@ export const ChannelListContainer = styled(Col)`
         display: flex;
         flex-direction: row;
         align-items: center;
+        position: relative;
+
+        /* &:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 13px;
+          height: 13px;
+          background-color: #31a24c;
+          border-radius: 50%;
+        } */
 
         .channel-image {
           width: 40px;
@@ -100,6 +112,16 @@ export const ChannelListContainer = styled(Col)`
       }
 
       .preview {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+
+        > div {
+          display: flex;
+          align-items: center;
+          flex-direction: row-reverse;
+        }
+
         .channel-name {
           margin-bottom: 0;
           font-weight: 700;
@@ -110,6 +132,14 @@ export const ChannelListContainer = styled(Col)`
           overflow: hidden;
           text-overflow: ellipsis;
           max-width: 150px;
+        }
+
+        .active {
+          width: 8px;
+          height: 8px;
+          background-color: #31a24c;
+          border-radius: 50%;
+          margin-right: 6px;
         }
 
         .last-message {
