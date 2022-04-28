@@ -1,5 +1,5 @@
 import React, { FC, memo, Suspense, lazy } from "react";
-import { useRoutes, Navigate, Outlet, Routes } from "react-router-dom";
+import { useRoutes, Navigate, Outlet, Routes, Route } from "react-router-dom";
 
 import { Loading } from "components";
 import { ROUTES } from "common/constant";
@@ -15,60 +15,45 @@ const AppRoutes: FC = () => {
   const user = localStorage.getItem("user");
   const isLogged = user ? JSON.parse(user).user : false;
 
-  const element = useRoutes([
-    {
-      path: ROUTES.HOME,
-      element: (
-        <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.LOGIN}>
-          <CommonLayout />
-        </ProtectedRoutes>
-      ),
-    },
-    {
-      path: ROUTES.HOME,
-      element: (
-        <ProtectedRoutes condition={!isLogged} redirectTo={ROUTES.HOME}>
-          <CommonLayout />
-        </ProtectedRoutes>
-      ),
-      children: [
-        {
-          path: ROUTES.LOGIN,
-          element: <Login />,
-        },
-        {
-          path: ROUTES.REGISTER,
-          element: <Register />,
-        },
-        {
-          path: ROUTES.FORGOT_PASSWORD,
-          element: <ForgotPassword />,
-        },
-      ],
-    },
-    {
-      path: ROUTES.HOME,
-      element: (
-        <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.LOGIN}>
-          <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.CHAT}>
-            <Chat />
-          </ProtectedRoutes>
-        </ProtectedRoutes>
-      ),
-      children: [
-        {
-          path: ROUTES.CHAT,
-          element: <Chat />,
-        },
-      ],
-    },
-    {
-      path: "*",
-      element: <Navigate to={ROUTES.HOME} state={{ from: location }} replace />,
-    },
-  ]);
+  return (
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        <Route
+          path={ROUTES.HOME}
+          element={
+            <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.LOGIN}>
+              <ProtectedRoutes condition={!isLogged} redirectTo={ROUTES.CHAT}>
+                <Login />
+              </ProtectedRoutes>
+            </ProtectedRoutes>
+          }
+        />
 
-  return <Suspense fallback={<Loading />}>{element}</Suspense>;
+        <Route
+          path={ROUTES.CHAT}
+          element={
+            <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.LOGIN}>
+              <Chat />
+            </ProtectedRoutes>
+          }
+        />
+
+        <Route path={ROUTES.LOGIN} element={<CommonLayout />}>
+          <Route path={ROUTES.LOGIN} element={<Login />} />
+        </Route>
+
+        <Route path={ROUTES.REGISTER} element={<CommonLayout />}>
+          <Route path={ROUTES.REGISTER} element={<Register />} />
+        </Route>
+
+        <Route path={ROUTES.FORGOT_PASSWORD} element={<CommonLayout />}>
+          <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
+        </Route>
+
+        <Route path="*" element={<p>There&apos;s nothing here: 404!</p>} />
+      </Routes>
+    </Suspense>
+  );
 };
 
 export default memo(AppRoutes);
