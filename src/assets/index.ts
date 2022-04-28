@@ -10,3 +10,6 @@ export { default as GOOGLE_ICON } from "../assets/icons/google.svg";
 export { default as FACEBOOK_ICON } from "../assets/icons/facebook.svg";
 export { default as ARROW_LEFT_ICON } from "../assets/icons/arrow-left.svg";
 export { default as LOGOUT } from "../assets/icons/logout.svg";
+export { default as FOLDER } from "../assets/icons/folder.svg";
+export { default as LIKE } from "../assets/icons/like.svg";
+export { default as PERSON } from "../assets/icons/person.svg";

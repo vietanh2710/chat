@@ -42,7 +42,7 @@ export const CommonLayoutContainer = styled.div`
       width: 100%;
       height: 52px;
       padding: 0 20px;
-      background-color: #f8f8f8;
+      background-color: #f4f4f4;
 
       &.error {
         border: 1px solid #ff1e1e;

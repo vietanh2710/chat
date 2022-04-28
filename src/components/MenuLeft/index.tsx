@@ -1,17 +1,20 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useGoogleLogout } from "react-google-login";
+import { useDispatch } from "react-redux";
 
-import { LOGOUT } from "assets";
-import { MenuLeftContainer } from "./style";
+import { LOGOUT, PERSON } from "assets";
 import { ROUTES } from "common/constant";
-import { setLogout } from "../../features/slice/auth";
 import { handleActions } from "common/auth";
+import { Profile } from "components";
+import { setLogout } from "../../ducks/slice/auth";
+import { MenuLeftContainer } from "./style";
 
 const MenuLeft: FC = () => {
   const navigate = useNavigate();
   const dispath = useDispatch();
+
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const onLogout = () => {
     handleActions({ accessToken: "", user: false });
@@ -27,8 +30,18 @@ const MenuLeft: FC = () => {
   return (
     <MenuLeftContainer>
       <div className="logo">Logo</div>
-      <div className="profile"></div>
+      <img
+        src={PERSON}
+        alt=""
+        className="icon-profile"
+        onClick={() => setIsModalVisible(true)}
+      />
       <img src={LOGOUT} alt="" className="icon-logout" onClick={signOut} />
+
+      <Profile
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
     </MenuLeftContainer>
   );
 };

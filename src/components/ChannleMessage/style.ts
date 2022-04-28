@@ -28,8 +28,8 @@ export const ChannelMessageContainer = styled(Col).attrs(
     }
 
     .icon-info {
-      width: 20px;
-      height: 20px;
+      width: 25px;
+      height: 25px;
       margin-right: 0;
       margin-left: auto;
       cursor: pointer;
@@ -206,8 +206,8 @@ export const ChannelMessageContainer = styled(Col).attrs(
       .icon-smile,
       .icon-img {
         margin-right: 15px;
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
         cursor: pointer;
       }
 

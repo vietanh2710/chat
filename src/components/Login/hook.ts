@@ -7,7 +7,7 @@ import sha256 from "sha256";
 import * as Yup from "yup";
 
 import { ROUTES, STATUS } from "common/constant";
-import { setLogin } from "../../features/slice/auth";
+import { setLogin } from "../../ducks/slice/auth";
 import { handleActions } from "common/auth";
 
 type InitialValues = {

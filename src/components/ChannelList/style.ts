@@ -89,17 +89,6 @@ export const ChannelListContainer = styled(Col)`
         align-items: center;
         position: relative;
 
-        /* &:before {
-          content: "";
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          width: 13px;
-          height: 13px;
-          background-color: #31a24c;
-          border-radius: 50%;
-        } */
-
         .channel-image {
           width: 40px;
           height: 40px;

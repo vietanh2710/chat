@@ -10,3 +10,5 @@ export { default as Register } from "./Register";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as Loading } from "./Loading";
 export { default as MenuLeft } from "./MenuLeft";
+export { default as Modal } from "./Modal";
+export { default as Profile } from "./Profile";

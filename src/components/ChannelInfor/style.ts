@@ -28,17 +28,6 @@ export const ChannelInforContainer = styled(Col)`
     .pannel-header {
       font-size: 14px;
       font-weight: 700;
-
-      /* &.ant-collapse-item-active {
-        & > div {
-          padding-top: 0;
-          padding-bottom: 0;
-        }
-      } */
-
-      /* & > div {
-        padding-top: 0;
-      } */
     }
 
     .members-list {

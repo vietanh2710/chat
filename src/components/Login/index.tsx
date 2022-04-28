@@ -6,7 +6,7 @@ import useLogin, { Props } from "./hook";
 import { LoginContainer } from "./style";
 import { FACEBOOK_ICON, GOOGLE_ICON } from "assets";
 
-const LoginView: React.FC<Props> = ({ formik, signIn }) => {
+const LoginView: FC<Props> = ({ formik, signIn }) => {
   return (
     <LoginContainer>
       <div className="header">
