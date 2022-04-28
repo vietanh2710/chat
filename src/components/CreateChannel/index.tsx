@@ -2,8 +2,9 @@ import React, { FC, memo } from "react";
 import { isEmpty } from "lodash";
 import { Popover } from "antd";
 
+import { XMARK_ICON } from "assets";
+import { MessageInput } from "components";
 import useCreateChannel, { Props, ReceivedProps } from "./hook";
-import { PAPER_PLANE_ICON, SMILE_ICON, XMARK_ICON } from "assets";
 import { CreateChannelContainer } from "./style";
 
 const CreateChannelLayout: FC<Props> = ({
@@ -85,17 +86,7 @@ const CreateChannelLayout: FC<Props> = ({
 
           <div className="message-list" onClick={() => setVisible(false)}></div>
 
-          <div className="chat" onClick={() => setVisible(false)}>
-            <div className="chat-left">
-              <img src={SMILE_ICON} alt="" className="icon-smile" />
-              <input
-                type="text"
-                placeholder="Send a message"
-                className="send"
-              />
-            </div>
-            <img src={PAPER_PLANE_ICON} alt="" className="icon-send" />
-          </div>
+          <MessageInput />
         </CreateChannelContainer>
       )}
     </>

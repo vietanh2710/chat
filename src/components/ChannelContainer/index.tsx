@@ -4,7 +4,7 @@ import { Row, Col } from "antd";
 import {
   ChannelInfor,
   ChannelList,
-  ChannelMessage,
+  MessageList,
   CreateChannel,
   MenuLeft,
 } from "components";
@@ -27,7 +27,7 @@ const Channel: FC = () => {
               createChannel={createChannel}
               setCreateChannel={setCreateChannel}
             />
-            <ChannelMessage
+            <MessageList
               showTabInfor={showTabInfor}
               setShowTabInfor={setShowTabInfor}
               createChannel={createChannel}

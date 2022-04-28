@@ -1,6 +1,6 @@
 export { default as ChannelContainer } from "./ChannelContainer";
 export { default as ChannelList } from "./ChannelList";
-export { default as ChannelMessage } from "./ChannleMessage";
+export { default as MessageList } from "./MessageList";
 export { default as ChannelInfor } from "./ChannelInfor";
 export { default as ChannelEmpty } from "./ChannelEmpty";
 export { default as CreateChannel } from "./CreateChannel";
@@ -12,3 +12,4 @@ export { default as Loading } from "./Loading";
 export { default as MenuLeft } from "./MenuLeft";
 export { default as Modal } from "./Modal";
 export { default as Profile } from "./Profile";
+export { default as MessageInput } from "./MessageInput";

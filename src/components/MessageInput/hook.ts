@@ -1,39 +1,22 @@
 import {
   Dispatch,
   SetStateAction,
-  MouseEvent,
   useState,
+  MouseEvent,
   useEffect,
-  FC,
 } from "react";
-import { IEmojiData } from "emoji-picker-react";
 import { useFormik } from "formik";
-import { ImageListType } from "react-images-uploading";
 import { isEmpty, isNil } from "lodash";
-
-export type ReceivedProps = {
-  showTabInfor: boolean;
-  createChannel: boolean;
-  setShowTabInfor: Dispatch<SetStateAction<boolean>>;
-  setCreateChannel: Dispatch<SetStateAction<boolean>>;
-};
-
-type CurrentMessage = {
-  open: boolean;
-  index: number | null;
-};
+import { IEmojiData } from "emoji-picker-react";
+import { ImageListType } from "react-images-uploading";
 
 type InitialValues = {
   value: string;
 };
 
-const useChannelMessage = (props: ReceivedProps) => {
-  const [currentMessage, setCurrentMessage] = useState<CurrentMessage>({
-    open: false,
-    index: null,
-  });
-  const [isEmoji, setEmoji] = useState<boolean>(false);
+const useMessageInput = () => {
   const [images, setImages] = useState<ImageListType>([]);
+  const [isEmoji, setEmoji] = useState<boolean>(false);
   const [inputHeight, setInputHeight] = useState<number>();
 
   const onChangeImg = (imageList: ImageListType) => setImages(imageList);
@@ -52,7 +35,7 @@ const useChannelMessage = (props: ReceivedProps) => {
 
   const getValue = formik.getFieldProps("value").value;
 
-  const onEmojiClick = (event: MouseEvent, emojiObject: IEmojiData) => {
+  const onEmojiClick = (_event: MouseEvent, emojiObject: IEmojiData) => {
     let message = getValue;
     message += emojiObject.emoji;
 
@@ -72,19 +55,16 @@ const useChannelMessage = (props: ReceivedProps) => {
   }, [getValue]);
 
   return {
-    ...props,
     formik,
     images,
-    inputHeight,
-    currentMessage,
     isEmoji,
+    inputHeight,
+    setEmoji,
     onEmojiClick,
     onChangeImg,
-    setEmoji,
-    setCurrentMessage,
   };
 };
 
-export type Props = ReturnType<typeof useChannelMessage>;
+export type Props = ReturnType<typeof useMessageInput>;
 
-export default useChannelMessage;
+export default useMessageInput;

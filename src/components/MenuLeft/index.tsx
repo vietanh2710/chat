@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useGoogleLogout } from "react-google-login";
 import { useDispatch } from "react-redux";
 
-import { LOGOUT, PERSON } from "assets";
+import { LOGOUT_ICON, PERSON_ICON } from "assets";
 import { ROUTES } from "common/constant";
 import { handleActions } from "common/auth";
 import { Profile } from "components";
@@ -31,12 +31,12 @@ const MenuLeft: FC = () => {
     <MenuLeftContainer>
       <div className="logo">Logo</div>
       <img
-        src={PERSON}
+        src={PERSON_ICON}
         alt=""
         className="icon-profile"
         onClick={() => setIsModalVisible(true)}
       />
-      <img src={LOGOUT} alt="" className="icon-logout" onClick={signOut} />
+      <img src={LOGOUT_ICON} alt="" className="icon-logout" onClick={signOut} />
 
       <Profile
         isModalVisible={isModalVisible}
