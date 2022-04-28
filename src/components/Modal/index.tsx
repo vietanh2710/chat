@@ -1,23 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 
 import { ModalWrapper } from "./style";
 
 interface IProps {
   title?: string | null;
   isModalVisible: boolean;
-  handleOk: () => void;
-  handleCancel: () => void;
   children: JSX.Element;
   showBtnOK?: boolean;
+  okText?: string | undefined;
+  handleOk: () => void;
+  handleCancel: () => void;
 }
 
 const Modal: FC<IProps> = ({
   title = "",
   isModalVisible = false,
-  handleOk,
-  handleCancel,
   children,
   showBtnOK = true,
+  okText = "ok",
+  handleOk,
+  handleCancel,
 }) => {
   return (
     <ModalWrapper
@@ -32,7 +34,7 @@ const Modal: FC<IProps> = ({
         ...[
           showBtnOK && (
             <button key="ok" onClick={handleOk}>
-              OK
+              {okText}
             </button>
           ),
         ],
@@ -43,4 +45,4 @@ const Modal: FC<IProps> = ({
   );
 };
 
-export default Modal;
+export default memo(Modal);

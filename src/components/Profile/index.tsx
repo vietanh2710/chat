@@ -17,6 +17,7 @@ const ProfileView: FC<Props> = ({
       showBtnOK={editProfile}
       handleOk={onSubmit}
       handleCancel={() => setIsModalVisible(false)}
+      okText={"Submit"}
     >
       <div className="profile">
         <div className="avt-img">

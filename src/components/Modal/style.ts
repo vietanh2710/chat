@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { Modal } from "antd";
 
 export const ModalWrapper = styled(Modal)`
+  .ant-modal-content {
+    border-radius: 6px;
+  }
+
   .ant-modal-footer {
     display: flex;
     justify-content: space-between;
@@ -34,6 +38,8 @@ export const ModalWrapper = styled(Modal)`
         height: 150px;
         object-fit: cover;
         border-radius: 50%;
+        border: 2px solid #d9d9d9;
+        padding: 4px;
       }
     }
 
