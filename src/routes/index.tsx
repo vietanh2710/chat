@@ -1,5 +1,5 @@
 import React, { FC, memo, Suspense, lazy } from "react";
-import { useRoutes } from "react-router-dom";
+import { Outlet, useRoutes } from "react-router-dom";
 
 import { Loading } from "components";
 import { ROUTES } from "common/constant";
@@ -19,14 +19,26 @@ const AppRoutes: FC = () => {
 
   const element = useRoutes([
     {
-      path: "/",
+      path: "*",
       element: <NotFoundPage />,
     },
     {
       path: ROUTES.HOME,
       element: (
-        <ProtectedRoutes condition={!isLogged} redirectTo={ROUTES.LOGIN}>
-          <CommonLayout />
+        <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.LOGIN}>
+          <ProtectedRoutes condition={!isLogged} redirectTo={ROUTES.CHAT}>
+            <Outlet />
+          </ProtectedRoutes>
+        </ProtectedRoutes>
+      ),
+    },
+    {
+      path: ROUTES.HOME,
+      element: (
+        <ProtectedRoutes condition={!isLogged} redirectTo={ROUTES.CHAT}>
+          <ProtectedRoutes condition={!isLogged} redirectTo={ROUTES.LOGIN}>
+            <CommonLayout />
+          </ProtectedRoutes>
         </ProtectedRoutes>
       ),
       children: [
