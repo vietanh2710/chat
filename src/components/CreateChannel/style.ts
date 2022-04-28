@@ -58,7 +58,7 @@ export const CreateChannelContainer = styled(Col).attrs(
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto;
-    height: 500px;
+    height: calc(100vh - 85px - 87px);
   }
 
   .chat {

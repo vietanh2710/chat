@@ -21,7 +21,7 @@ const CreateChannelLayout: FC<Props> = ({
   return (
     <>
       {createChannel && (
-        <CreateChannelContainer span={16} data={data.length}>
+        <CreateChannelContainer span={18} data={data.length}>
           <div className="header" onClick={() => setVisible(!visible)}>
             <div className="search">To: </div>
             <div className="users-active">

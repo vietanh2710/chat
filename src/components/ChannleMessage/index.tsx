@@ -115,6 +115,7 @@ const ChannelMessageLayout: React.FC<Props> = ({
                                 height={70}
                                 style={{
                                   marginRight: 20,
+                                  objectFit: "cover",
                                 }}
                               />
                             </div>
