@@ -1,5 +1,5 @@
 import React, { FC, memo, Suspense, lazy } from "react";
-import { useRoutes, Navigate, Outlet, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import { Loading } from "components";
 import { ROUTES } from "common/constant";
