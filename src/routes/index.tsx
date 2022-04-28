@@ -38,6 +38,15 @@ const AppRoutes: FC = () => {
           }
         />
 
+        <Route
+          path={ROUTES.LOGIN}
+          element={
+            <ProtectedRoutes condition={!isLogged} redirectTo={ROUTES.CHAT}>
+              <Chat />
+            </ProtectedRoutes>
+          }
+        />
+
         <Route path={ROUTES.LOGIN} element={<CommonLayout />}>
           <Route path={ROUTES.LOGIN} element={<Login />} />
         </Route>
