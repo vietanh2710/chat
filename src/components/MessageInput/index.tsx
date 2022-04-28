@@ -2,7 +2,7 @@ import React, { FC, memo } from "react";
 import ImageUploading from "react-images-uploading";
 import Picker from "emoji-picker-react";
 
-import useMessageInput, { Props } from "./hook";
+import useMessageInput, { Props, ReceivedProps } from "./hook";
 import { MessageInputContainer } from "./style";
 
 import {
@@ -18,13 +18,14 @@ const MessageInputLayout: FC<Props> = ({
   formik,
   images,
   isEmoji,
+  inputHeight,
   setEmoji,
   onEmojiClick,
   onChangeImg,
 }) => {
   return (
-    <MessageInputContainer>
-      <form onSubmit={formik.handleSubmit} className="chat">
+    <MessageInputContainer heightInput={inputHeight}>
+      <form onSubmit={formik.handleSubmit} className="chat" id="chat-wrapper">
         <div className="chat-wrapper">
           <ImageUploading multiple value={images} onChange={onChangeImg}>
             {({ onImageUpload, onImageRemove }) => {
@@ -120,6 +121,8 @@ const MessageInputLayout: FC<Props> = ({
   );
 };
 
-const MessageInput: FC = () => <MessageInputLayout {...useMessageInput()} />;
+const MessageInput: FC<ReceivedProps> = (props) => (
+  <MessageInputLayout {...useMessageInput(props)} />
+);
 
 export default memo(MessageInput);

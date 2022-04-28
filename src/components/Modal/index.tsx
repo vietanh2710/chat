@@ -6,20 +6,12 @@ interface IProps {
   title?: string | null;
   isModalVisible: boolean;
   children: JSX.Element;
-  showBtnOK?: boolean;
-  okText?: string | undefined;
-  handleOk: () => void;
-  handleCancel: () => void;
 }
 
 const Modal: FC<IProps> = ({
   title = "",
   isModalVisible = false,
   children,
-  showBtnOK = true,
-  okText = "ok",
-  handleOk,
-  handleCancel,
 }) => {
   return (
     <ModalWrapper
@@ -27,18 +19,7 @@ const Modal: FC<IProps> = ({
       visible={isModalVisible}
       title={title}
       closeIcon={true}
-      footer={[
-        <button key="cancel" onClick={handleCancel}>
-          Cancel
-        </button>,
-        ...[
-          showBtnOK && (
-            <button key="ok" onClick={handleOk}>
-              {okText}
-            </button>
-          ),
-        ],
-      ]}
+      footer={null}
     >
       {children}
     </ModalWrapper>

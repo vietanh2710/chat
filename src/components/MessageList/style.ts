@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { Col } from "antd";
 
-export const MessageListContainer = styled(Col)`
+export const MessageListContainer = styled(Col).attrs(
+  (props: { heightWrapper: number }) => props
+)`
   position: relative;
 
   .header {
@@ -38,7 +40,10 @@ export const MessageListContainer = styled(Col)`
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto;
-    height: calc(100vh - 85px - 87px);
+    /* height: calc(100vh - 172px - 85px); */
+
+    height: ${(props: { heightWrapper: number }) =>
+      `calc(100vh - ${85 + props.heightWrapper}px)`};
 
     .time {
       display: block;

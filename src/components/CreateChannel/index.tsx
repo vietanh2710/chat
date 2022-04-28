@@ -86,7 +86,7 @@ const CreateChannelLayout: FC<Props> = ({
 
           <div className="message-list" onClick={() => setVisible(false)}></div>
 
-          <MessageInput />
+          {/* <MessageInput /> */}
         </CreateChannelContainer>
       )}
     </>

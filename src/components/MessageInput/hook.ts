@@ -1,9 +1,9 @@
 import {
-  Dispatch,
-  SetStateAction,
   useState,
   MouseEvent,
   useEffect,
+  Dispatch,
+  SetStateAction,
 } from "react";
 import { useFormik } from "formik";
 import { isEmpty, isNil } from "lodash";
@@ -14,7 +14,11 @@ type InitialValues = {
   value: string;
 };
 
-const useMessageInput = () => {
+export type ReceivedProps = {
+  setHeightWrapper: Dispatch<SetStateAction<number | undefined>>;
+};
+
+const useMessageInput = (props: ReceivedProps) => {
   const [images, setImages] = useState<ImageListType>([]);
   const [isEmoji, setEmoji] = useState<boolean>(false);
   const [inputHeight, setInputHeight] = useState<number>();
@@ -54,7 +58,13 @@ const useMessageInput = () => {
     setInputHeight(result.scrollHeight);
   }, [getValue]);
 
+  useEffect(() => {
+    const result = document.getElementById("chat-wrapper");
+    props.setHeightWrapper(result?.clientHeight);
+  }, [getValue, images, props]);
+
   return {
+    ...props,
     formik,
     images,
     isEmoji,

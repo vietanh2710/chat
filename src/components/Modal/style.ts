@@ -28,10 +28,10 @@ export const ModalWrapper = styled(Modal)`
   .profile {
     display: flex;
     justify-content: inherit;
+    flex-direction: column;
 
     .avt-img {
-      border-right: 1px solid;
-      padding-right: 20px;
+      margin-bottom: 20px;
 
       img {
         width: 150px;
@@ -50,54 +50,66 @@ export const ModalWrapper = styled(Modal)`
       label {
         width: 100%;
         margin-bottom: 5px;
-        font-weight: 500;
+        font-weight: 700;
         font-size: 15px;
         display: flex;
         align-items: center;
+        margin-top: 20px;
+
+        &:nth-child(1) {
+          margin-top: 0;
+        }
 
         > div {
           margin-left: 5px;
+          font-weight: 400;
         }
       }
 
       input {
-        margin-bottom: 5px;
         width: 100%;
         border: none;
         border-radius: 10px;
-        width: 100%;
         height: 45px;
         padding: 0 20px;
         background-color: #f4f4f4;
-
-        &.error {
-          border: 1px solid #ff1e1e;
-          margin-bottom: 5px;
-          color: #000;
-
-          &:focus {
-            border: 1px solid #ff1e1e;
-          }
-        }
 
         &:focus {
           border: none;
           outline: none;
         }
       }
+    }
 
-      .error-text {
-        color: #ff1e1e;
-      }
+    .btn-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 30px;
+      border-top: 1.5px solid #f0f0f0;
+      padding-top: 20px;
 
-      .btn-edit {
+      .btn-submit {
         border: 1px solid #d9d9d9;
         background-color: #4259ac;
-        padding: 5px 20px;
+        padding: 10px 20px;
         border-radius: 5px;
         color: #fff;
         cursor: pointer;
-        margin-top: 20px;
+
+        &.disable {
+          background-color: #ececec;
+          color: #000;
+          cursor: not-allowed;
+        }
+      }
+
+      .btn-cancel {
+        border: 1px solid #d9d9d9;
+        background-color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
       }
     }
   }

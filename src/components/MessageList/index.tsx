@@ -12,13 +12,18 @@ const MessageListLayout: FC<Props> = ({
   createChannel,
   showTabInfor,
   currentMessage,
+  heightWrapper,
+  setHeightWrapper,
   setShowTabInfor,
   setCurrentMessage,
 }) => {
   return (
     <>
       {!createChannel && (
-        <MessageListContainer span={showTabInfor ? 13 : 18}>
+        <MessageListContainer
+          span={showTabInfor ? 13 : 18}
+          heightWrapper={heightWrapper}
+        >
           <div className="header">
             <img
               src="https://img.icons8.com/office/344/conference-call.png"
@@ -75,7 +80,7 @@ const MessageListLayout: FC<Props> = ({
             </div> */}
           </div>
 
-          <MessageInput />
+          <MessageInput setHeightWrapper={setHeightWrapper} />
         </MessageListContainer>
       )}
     </>
