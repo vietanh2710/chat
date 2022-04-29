@@ -90,7 +90,7 @@ export const ModalWrapper = styled(Modal)`
       padding-top: 20px;
 
       .btn-submit {
-        border: 1px solid #d9d9d9;
+        border: none;
         background-color: #4259ac;
         padding: 10px 20px;
         border-radius: 5px;
