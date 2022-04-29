@@ -59,8 +59,10 @@ const AppRoutes: FC = () => {
     {
       path: ROUTES.CHAT,
       element: (
-        <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.CHAT}>
-          <Chat />
+        <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.LOGIN}>
+          <ProtectedRoutes condition={isLogged} redirectTo={ROUTES.CHAT}>
+            <Chat />
+          </ProtectedRoutes>
         </ProtectedRoutes>
       ),
     },
