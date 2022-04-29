@@ -28,10 +28,11 @@ export const ModalWrapper = styled(Modal)`
   .profile {
     display: flex;
     justify-content: inherit;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
 
     .avt-img {
-      margin-bottom: 20px;
+      padding-right: 15px;
 
       img {
         width: 150px;
@@ -46,6 +47,7 @@ export const ModalWrapper = styled(Modal)`
     .content {
       padding-left: 20px;
       width: 100%;
+      flex: 1;
 
       label {
         width: 100%;
@@ -108,6 +110,7 @@ export const ModalWrapper = styled(Modal)`
       margin-top: 30px;
       border-top: 1.5px solid #f0f0f0;
       padding-top: 20px;
+      width: 100%;
 
       .btn-submit {
         border: none;
