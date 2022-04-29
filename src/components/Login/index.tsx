@@ -35,7 +35,7 @@ const LoginView: FC<Props> = ({ formik, signIn }) => {
             <label className="text">Password</label>
             <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?</Link>
             <input
-              type="text"
+              type="password"
               className={`input ${
                 formik.errors.password && formik.touched.password && "error"
               }`}

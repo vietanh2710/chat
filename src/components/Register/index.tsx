@@ -33,7 +33,7 @@ const RegisterView: FC<Props> = ({ formik }) => {
 
             <label className="text">Password</label>
             <input
-              type="text"
+              type="password"
               className={`input ${
                 formik.errors.password && formik.touched.password && "error"
               }`}
@@ -45,7 +45,7 @@ const RegisterView: FC<Props> = ({ formik }) => {
 
             <label className="text">Confirm password</label>
             <input
-              type="text"
+              type="password"
               className={`input ${
                 formik.errors.confirm_password &&
                 formik.touched.confirm_password &&

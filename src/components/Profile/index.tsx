@@ -67,7 +67,7 @@ const ProfileView: FC<Props> = ({
 
             <label>Password: {!editProfile && <div>*******</div>}</label>
             {editProfile && (
-              <input type="text" {...formik.getFieldProps("password")} />
+              <input type="password" {...formik.getFieldProps("password")} />
             )}
           </div>
 
