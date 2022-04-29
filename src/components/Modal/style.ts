@@ -56,13 +56,18 @@ export const ModalWrapper = styled(Modal)`
         align-items: center;
         margin-top: 20px;
 
-        &:nth-child(1) {
-          margin-top: 0;
+        > span {
+          color: #ff1e1e;
+          margin-right: 5px;
         }
 
         > div {
           margin-left: 5px;
           font-weight: 400;
+        }
+
+        &:nth-child(1) {
+          margin-top: 0;
         }
       }
 
@@ -74,10 +79,25 @@ export const ModalWrapper = styled(Modal)`
         padding: 0 20px;
         background-color: #f4f4f4;
 
+        &.error {
+          border: 1px solid #ff1e1e;
+          margin-bottom: 5px;
+          color: #000;
+
+          &:focus {
+            border: 1px solid #ff1e1e;
+          }
+        }
+
         &:focus {
           border: none;
           outline: none;
         }
+      }
+
+      .error-text {
+        padding-top: 3px;
+        color: #ff1e1e;
       }
     }
 

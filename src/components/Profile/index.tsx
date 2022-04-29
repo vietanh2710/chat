@@ -42,11 +42,24 @@ const ProfileView: FC<Props> = ({
 
           <div className="content">
             <label>
+              {editProfile && <span>*</span>}
               Email:
               {!editProfile && <div>{user?.email}</div>}
             </label>
             {editProfile && (
-              <input type="text" {...formik.getFieldProps("email")} />
+              <input
+                type="text"
+                {...formik.getFieldProps("email")}
+                className={`${
+                  formik.errors.email &&
+                  formik.touched.email &&
+                  "error" &&
+                  "error"
+                }`}
+              />
+            )}
+            {formik.errors.email && formik.touched.email && (
+              <p className="error-text">{formik.errors.email}</p>
             )}
 
             <label>

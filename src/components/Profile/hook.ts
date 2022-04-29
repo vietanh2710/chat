@@ -29,6 +29,8 @@ const useProfile = (props: ReceivedProps) => {
 
   const onSubmit = (response: InitialValues) => {
     if (!isEmpty(formik.errors) || isEmpty(formik.values.email)) return;
+
+    console.log("response :>> ", response);
   };
 
   const formik = useFormik({
