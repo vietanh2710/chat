@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Col } from "antd";
 
 export const CreateChannelContainer = styled(Col).attrs(
-  (props: { data: number; heightWrapper: number }) => props
+  (props: { heightWrapper: number }) => props
 )`
   position: relative;
 
