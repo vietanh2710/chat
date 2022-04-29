@@ -60,8 +60,9 @@ const useMessageInput = (props: ReceivedProps) => {
 
   useEffect(() => {
     const result = document.getElementById("chat-wrapper");
+
     props.setHeightWrapper(result?.clientHeight);
-  }, [getValue, images, props]);
+  }, [getValue, images, props, inputHeight]);
 
   return {
     ...props,

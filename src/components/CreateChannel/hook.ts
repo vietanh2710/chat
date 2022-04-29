@@ -12,6 +12,7 @@ export type ReceivedProps = {
 const useCreateChannel = (props: ReceivedProps) => {
   const [users, setUsers] = useState<Array<number>>([]);
   const [visible, setVisible] = useState<boolean>(false);
+  const [heightWrapper, setHeightWrapper] = useState<number>();
 
   const addUser = (props: { id: number }) =>
     setUsers(uniq([...users, props?.id]));
@@ -34,6 +35,8 @@ const useCreateChannel = (props: ReceivedProps) => {
     filterUsersActive,
     data,
     users,
+    heightWrapper,
+    setHeightWrapper,
     setVisible,
     removeUser,
     addUser,

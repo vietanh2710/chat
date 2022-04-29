@@ -20,8 +20,6 @@ const useChannelMessage = (props: ReceivedProps) => {
 
   const [heightWrapper, setHeightWrapper] = useState<number>();
 
-  console.log("heightWrapper :>> ", heightWrapper);
-
   return {
     ...props,
     currentMessage,

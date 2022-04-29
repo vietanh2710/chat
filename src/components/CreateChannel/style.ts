@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Col } from "antd";
 
 export const CreateChannelContainer = styled(Col).attrs(
-  (props: { data: number }) => props
+  (props: { data: number; heightWrapper: number }) => props
 )`
   position: relative;
 
@@ -58,48 +58,7 @@ export const CreateChannelContainer = styled(Col).attrs(
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto;
-    height: calc(100vh - 85px - 87px);
-  }
-
-  .chat {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-
-    &-left {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      padding-right: 20px;
-
-      .send {
-        box-shadow: 0 1px 5px rgb(0 0 0 / 7%);
-        border: none;
-        border-radius: 10px;
-        width: 100%;
-        padding: 12px 20px;
-
-        &:focus {
-          border: none;
-          outline: none;
-        }
-      }
-    }
-
-    .icon-send {
-      width: 20px;
-      height: 20px;
-      transform: rotate(45deg);
-      cursor: pointer;
-    }
-
-    .icon-smile {
-      margin-right: 10px;
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-    }
+    height: ${(props: { heightWrapper: number }) =>
+      `calc(100vh - ${85 + props.heightWrapper}px)`};
   }
 `;

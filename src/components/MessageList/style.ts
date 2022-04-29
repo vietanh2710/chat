@@ -40,8 +40,6 @@ export const MessageListContainer = styled(Col).attrs(
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto;
-    /* height: calc(100vh - 172px - 85px); */
-
     height: ${(props: { heightWrapper: number }) =>
       `calc(100vh - ${85 + props.heightWrapper}px)`};
 

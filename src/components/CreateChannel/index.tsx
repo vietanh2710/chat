@@ -14,6 +14,8 @@ const CreateChannelLayout: FC<Props> = ({
   visible,
   filterUsersActive,
   filterListUsers,
+  heightWrapper,
+  setHeightWrapper,
   addUser,
   removeUser,
   setVisible,
@@ -22,7 +24,11 @@ const CreateChannelLayout: FC<Props> = ({
   return (
     <>
       {createChannel && (
-        <CreateChannelContainer span={18} data={data.length}>
+        <CreateChannelContainer
+          span={18}
+          data={data.length}
+          heightWrapper={heightWrapper}
+        >
           <div className="header" onClick={() => setVisible(!visible)}>
             <div className="search">To: </div>
             <div className="users-active">
@@ -86,7 +92,7 @@ const CreateChannelLayout: FC<Props> = ({
 
           <div className="message-list" onClick={() => setVisible(false)}></div>
 
-          {/* <MessageInput /> */}
+          <MessageInput setHeightWrapper={setHeightWrapper} />
         </CreateChannelContainer>
       )}
     </>
