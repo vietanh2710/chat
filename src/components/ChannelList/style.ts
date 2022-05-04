@@ -62,7 +62,6 @@ export const ChannelListContainer = styled(Col)`
   }
 
   .channel-list {
-    margin-top: 10px;
     padding-top: 16px;
     padding-left: 20px;
     padding-right: 20px;

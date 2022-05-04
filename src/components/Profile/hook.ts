@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { ImageListType } from "react-images-uploading";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { isEmpty } from "lodash";
+import { isEmpty, omit } from "lodash";
 
 import { authSelector } from "../../ducks/selector";
 
@@ -30,15 +30,15 @@ const useProfile = (props: ReceivedProps) => {
   const onSubmit = (response: InitialValues) => {
     if (!isEmpty(formik.errors) || isEmpty(formik.values.email)) return;
 
-    console.log("response :>> ", response);
+    console.log("response :>> ", omit(response, "password"));
   };
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      email: user?.email || "",
       password: "",
-      userName: "",
-      fullName: "",
+      userName: user?.userName || "",
+      fullName: user?.fullName || "",
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().email("Email in valid"),

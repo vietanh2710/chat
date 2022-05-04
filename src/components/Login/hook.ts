@@ -52,9 +52,7 @@ const useLogin = () => {
     if (response?.error === STATUS.CLOSE_POPUP_GOOGLE) {
       handleActions({ accessToken: "", user: false });
     }
-
     handleActions({ accessToken: response.accessToken, user: true });
-
     dispath(
       setLogin({
         email: response.profileObj.email,
@@ -73,6 +71,7 @@ const useLogin = () => {
     cookiePolicy: "single_host_origin",
     isSignedIn: false,
     prompt: "consent",
+    fetchBasicProfile: true,
   });
 
   return {

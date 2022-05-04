@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import { isEmpty } from "lodash";
 
 import { ARROW_LEFT_ICON } from "assets";
 import { ROUTES } from "common/constant";

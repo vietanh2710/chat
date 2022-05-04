@@ -119,6 +119,7 @@ export const ModalWrapper = styled(Modal)`
         border-radius: 5px;
         color: #fff;
         cursor: pointer;
+        font-weight: 500;
 
         &.disable {
           background-color: #ececec;
@@ -133,6 +134,7 @@ export const ModalWrapper = styled(Modal)`
         padding: 10px 20px;
         border-radius: 5px;
         cursor: pointer;
+        font-weight: 500;
       }
     }
   }

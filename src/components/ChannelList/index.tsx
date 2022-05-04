@@ -48,7 +48,8 @@ const ChannelList: FC<IProps> = ({ setCreateChannel }) => {
               </div>
 
               <div className="last-time">
-                {moment.unix(item.lastTime).format(DATE_TIME_FORMAT.TIME)}
+                {/* {moment.unix(item.lastTime).format(DATE_TIME_FORMAT.DATE_TIME)} */}
+                {moment.unix(item.lastTime).isoWeekday()}
               </div>
             </div>
           );

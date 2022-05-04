@@ -3,8 +3,6 @@ import ImageUploading from "react-images-uploading";
 import Picker from "emoji-picker-react";
 
 import useMessageInput, { Props, ReceivedProps } from "./hook";
-import { MessageInputContainer } from "./style";
-
 import {
   FOLDER_ICON,
   IMAGE_ICON,
@@ -13,21 +11,25 @@ import {
   SMILE_ICON,
   XMARK_ICON,
 } from "assets";
+import { MessageInputContainer } from "./style";
 
 const MessageInputLayout: FC<Props> = ({
   formik,
   images,
   isEmoji,
   inputHeight,
+  inputFileRef,
+  onUploadFile,
+  onChangeFile,
   setEmoji,
   onEmojiClick,
-  onChangeImg,
+  onUploadImg,
 }) => {
   return (
     <MessageInputContainer heightInput={inputHeight}>
       <form onSubmit={formik.handleSubmit} className="chat" id="chat-wrapper">
         <div className="chat-wrapper">
-          <ImageUploading multiple value={images} onChange={onChangeImg}>
+          <ImageUploading multiple value={images} onChange={onUploadImg}>
             {({ onImageUpload, onImageRemove }) => {
               return (
                 <div className="chat-wrapper">
@@ -74,7 +76,22 @@ const MessageInputLayout: FC<Props> = ({
                       }}
                     />
 
-                    <img src={FOLDER_ICON} alt="" className="icon-folder" />
+                    <input
+                      type="file"
+                      accept="video/*, .pdf, .json, .zip"
+                      ref={inputFileRef}
+                      onChange={onChangeFile}
+                      style={{
+                        display: "none",
+                      }}
+                    />
+
+                    <img
+                      src={FOLDER_ICON}
+                      alt=""
+                      className="icon-folder"
+                      onClick={onUploadFile}
+                    />
 
                     {isEmoji && (
                       <Picker

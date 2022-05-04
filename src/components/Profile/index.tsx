@@ -58,7 +58,7 @@ const ProfileView: FC<Props> = ({
                 }`}
               />
             )}
-            {formik.errors.email && formik.touched.email && (
+            {editProfile && formik.errors.email && formik.touched.email && (
               <p className="error-text">{formik.errors.email}</p>
             )}
 

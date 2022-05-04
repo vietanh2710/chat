@@ -4,6 +4,9 @@ import {
   useEffect,
   Dispatch,
   SetStateAction,
+  useRef,
+  ChangeEvent,
+  MutableRefObject,
 } from "react";
 import { useFormik } from "formik";
 import { isEmpty, isNil } from "lodash";
@@ -23,7 +26,7 @@ const useMessageInput = (props: ReceivedProps) => {
   const [isEmoji, setEmoji] = useState<boolean>(false);
   const [inputHeight, setInputHeight] = useState<number>();
 
-  const onChangeImg = (imageList: ImageListType) => setImages(imageList);
+  const onUploadImg = (imageList: ImageListType) => setImages(imageList);
 
   const onSubmit = (params: InitialValues) => {
     formik.resetForm();
@@ -44,6 +47,24 @@ const useMessageInput = (props: ReceivedProps) => {
     message += emojiObject.emoji;
 
     formik.setFieldValue("value", message);
+  };
+
+  const inputFileRef: MutableRefObject<any> = useRef(null);
+
+  const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+
+    if (!fileList) return;
+
+    Array.from(fileList).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = () => console.log(reader);
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const onUploadFile = () => {
+    inputFileRef.current.click();
   };
 
   useEffect(() => {
@@ -70,9 +91,12 @@ const useMessageInput = (props: ReceivedProps) => {
     images,
     isEmoji,
     inputHeight,
+    inputFileRef,
+    onUploadFile,
+    onChangeFile,
     setEmoji,
     onEmojiClick,
-    onChangeImg,
+    onUploadImg,
   };
 };
 
