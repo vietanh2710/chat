@@ -2,7 +2,6 @@ export { default as ChannelContainer } from "./ChannelContainer";
 export { default as ChannelList } from "./ChannelList";
 export { default as MessageList } from "./MessageList";
 export { default as ChannelInfor } from "./ChannelInfor";
-export { default as ChannelEmpty } from "./ChannelEmpty";
 export { default as CreateChannel } from "./CreateChannel";
 export { default as CommonLayout } from "./CommonLayout";
 export { default as Login } from "./Login";

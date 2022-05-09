@@ -4,12 +4,14 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { isEmpty, omit } from "lodash";
 
-import userFireStore from "hooks/useFireStore";
+import { Auth, Users } from "types";
 import { getProfile } from "common/auth";
 
 export type ReceivedProps = {
   setIsModalVisible: Dispatch<SetStateAction<boolean>>;
   isModalVisible: boolean;
+  auth: Auth;
+  users: Users[];
 };
 
 type InitialValues = {
@@ -20,7 +22,6 @@ type InitialValues = {
 };
 
 const useProfile = (props: ReceivedProps) => {
-  const { user } = userFireStore();
   const [images, setImages] = useState<ImageListType>([]);
   const [editProfile, setEditProfile] = useState<boolean>(false);
 
@@ -32,14 +33,12 @@ const useProfile = (props: ReceivedProps) => {
     console.log("response :>> ", omit(response, "password"));
   };
 
-  const getUser = getProfile(user?.uid || "");
-
   const formik = useFormik({
     initialValues: {
-      email: getUser?.email || "",
+      email: props.auth.email || "",
       password: "",
-      userName: getUser?.userName || "",
-      fullName: getUser?.fullName || "",
+      userName: props.auth.userName || "",
+      fullName: props.auth.fullName || "",
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().email("Email in valid"),
@@ -61,10 +60,8 @@ const useProfile = (props: ReceivedProps) => {
   return {
     ...props,
     editProfile,
-    user,
     images,
     formik,
-    getUser,
     onSubmit,
     onOk,
     onCancel,

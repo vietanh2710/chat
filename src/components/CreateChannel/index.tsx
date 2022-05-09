@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import { FC, memo } from "react";
 import { isEmpty } from "lodash";
 import { Popover } from "antd";
 
@@ -81,9 +81,6 @@ const CreateChannelLayout: FC<Props> = ({
                       alt=""
                       className="icon-xmark"
                       onClick={() => {
-                        if (users.length === 1) {
-                          setCreateChannel(false);
-                        }
                         setVisible(false);
                         removeUser(i.uid);
                       }}
@@ -100,7 +97,10 @@ const CreateChannelLayout: FC<Props> = ({
                       <div
                         className="item"
                         key={index}
-                        onClick={() => addUser(i.uid)}
+                        onClick={() => {
+                          addUser(i.uid);
+                          setVisible(false);
+                        }}
                         style={{
                           display: "flex",
                           alignItems: "center",

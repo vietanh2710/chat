@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import userFireStore from "hooks/useFireStore";
-import { addRecord } from "services/addRecord";
+import { addRecord } from "services/service";
 
 export type ReceivedProps = {
   createChannel: boolean;
@@ -19,19 +19,24 @@ type InitialValues = {
 };
 
 const useCreateChannel = (props: ReceivedProps) => {
-  const { users: allUser } = userFireStore();
+  const { users, user } = userFireStore();
 
-  const [users, setUsers] = useState<string[]>([]);
+  const [allUser, setUsers] = useState<string[]>([]);
   const [visible, setVisible] = useState<boolean>(false);
 
+  const convertUsers = users.filter((i) => i.uid !== user?.uid);
+
   const onSubmit = (response: InitialValues) => {
+    if (isEmpty(response.members)) return;
+
     addRecord("channels", {
       channelName: response.channelName,
       description: response.description,
-      members: users,
+      members: [...users, user?.uid],
       createdAt: Date.now(),
     });
     formik.resetForm();
+    props.setCreateChannel(false);
     setUsers([]);
   };
 
@@ -46,16 +51,18 @@ const useCreateChannel = (props: ReceivedProps) => {
     onSubmit: (values) => onSubmit(values),
   });
 
-  const addUser = (id: string) => setUsers(uniq([...users, id]));
+  const addUser = (id: string) => setUsers(uniq([...allUser, id]));
 
   const removeUser = (id: string) =>
-    setUsers(users.filter((i: string) => i !== id));
+    setUsers(allUser.filter((i: string) => i !== id));
 
-  const filterUsersActive = allUser.filter((i) => includes(users, i.uid));
+  const filterUsersActive = convertUsers.filter((i) =>
+    includes(allUser, i.uid)
+  );
 
   const filterListUsers = isEmpty(filterUsersActive)
-    ? allUser
-    : allUser.filter((i) => !includes(users, i.uid));
+    ? convertUsers
+    : convertUsers.filter((i) => !includes(allUser, i.uid));
 
   return {
     ...props,

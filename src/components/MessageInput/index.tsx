@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import { FC, memo } from "react";
 import ImageUploading from "react-images-uploading";
 import Picker from "emoji-picker-react";
 

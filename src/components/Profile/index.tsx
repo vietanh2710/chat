@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import ImageUploading from "react-images-uploading";
 import { get, isEmpty } from "lodash";
 
@@ -9,10 +9,9 @@ import { ProfileContainer } from "./style";
 const ProfileView: FC<Props> = ({
   isModalVisible,
   editProfile,
-  user,
   images,
   formik,
-  getUser,
+  auth,
   onOk,
   onChangeImg,
   onCancel,
@@ -25,7 +24,7 @@ const ProfileView: FC<Props> = ({
             <img
               src={
                 get(images, "[0].dataURL") ||
-                getUser?.avt ||
+                auth.avt ||
                 "https://img.icons8.com/office/344/conference-call.png"
               }
               alt=""
@@ -46,7 +45,7 @@ const ProfileView: FC<Props> = ({
             <label>
               {editProfile && <span>*</span>}
               Email:
-              {!editProfile && <div>{getUser?.email}</div>}
+              {!editProfile && <div>{auth.email}</div>}
             </label>
             {editProfile && (
               <input
@@ -66,7 +65,7 @@ const ProfileView: FC<Props> = ({
 
             <label>
               User Name:
-              {!editProfile && <div>{getUser?.userName}</div>}
+              {!editProfile && <div>{auth.userName}</div>}
             </label>
             {editProfile && (
               <input type="text" {...formik.getFieldProps("userName")} />
@@ -74,7 +73,7 @@ const ProfileView: FC<Props> = ({
 
             <label>
               Full Name:
-              {!editProfile && <div>{getUser?.fullName}</div>}
+              {!editProfile && <div>{auth.fullName}</div>}
             </label>
             {editProfile && (
               <input type="text" {...formik.getFieldProps("fullName")} />

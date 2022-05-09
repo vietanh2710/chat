@@ -1,4 +1,4 @@
-import React, { FC, memo, Suspense, lazy } from "react";
+import { FC, memo, Suspense, lazy } from "react";
 import { Outlet, useRoutes } from "react-router-dom";
 
 import { Loading } from "components";

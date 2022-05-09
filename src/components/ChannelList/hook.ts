@@ -1,10 +1,10 @@
+import { Dispatch, SetStateAction, useState } from "react";
 import { last } from "lodash";
-import React, { Dispatch, SetStateAction, useMemo, useState } from "react";
 
-import { Channels, Messages, User, Users } from "types";
+import { Auth, Channels, Messages, Users } from "types";
 
 export type ReceivedProps = {
-  user: User;
+  auth: Auth;
   users: Users[];
   channels: Channels[];
   messages: Messages[];
@@ -15,20 +15,14 @@ export type ReceivedProps = {
 const useChannelList = (props: ReceivedProps) => {
   const [createChannel, setCreateChannel] = useState<boolean>(false);
 
-  const data = props.channels.filter((i) => {
-    if (!props.user?.uid) return [];
-    return i.members.includes(props.user?.uid);
-  });
+  const data = props.channels.filter((i) => i.members.includes(props.auth.uid));
 
-  const lastMessage = (id: string) => {
-    const result = props.messages.filter((i) => i.channelId === id);
-
-    return last(result);
-  };
+  const lastMessage = (id: string) =>
+    last(props.messages.filter((i) => i.channelId === id));
 
   const getProfile = (uid: string[]) => {
     const getUser = props.users.find(
-      (o) => uid.includes(o.uid) && o.uid !== props.user?.uid
+      (o) => uid.includes(o.uid) && o.uid !== props.auth.uid
     );
 
     return {

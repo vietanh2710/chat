@@ -29,3 +29,15 @@ export interface Users {
 export interface User {
   uid: string;
 }
+
+export interface Auth {
+  id: string;
+  uid: string;
+  email: string;
+  avt: string;
+  fullName: string;
+  userName: string;
+  backgroundColor: string;
+  providerId: string;
+  createdAt: number;
+}

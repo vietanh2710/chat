@@ -1,15 +1,21 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogout } from "react-google-login";
 import { useDispatch } from "react-redux";
 
+import { Auth, Users } from "types";
 import { LOGOUT_ICON, PERSON_ICON } from "assets";
 import { ROUTES } from "common/constant";
 import { Profile } from "components";
 import { resetAuth } from "../../ducks/slice/auth";
 import { MenuLeftContainer } from "./style";
 
-const MenuLeft: FC = () => {
+interface IProps {
+  auth: Auth;
+  users: Users[];
+}
+
+const MenuLeft: FC<IProps> = ({ auth, users }) => {
   const navigate = useNavigate();
   const dispath = useDispatch();
 
@@ -40,6 +46,8 @@ const MenuLeft: FC = () => {
       <Profile
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
+        auth={auth}
+        users={users}
       />
     </MenuLeftContainer>
   );

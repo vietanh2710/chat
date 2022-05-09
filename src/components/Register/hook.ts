@@ -4,7 +4,7 @@ import * as Yup from "yup";
 
 import { ROUTES } from "common/constant";
 import { signup } from "common/auth";
-import { addRecord } from "services/addRecord";
+import { addRecord } from "services/service";
 
 type InitialValues = {
   email: string;

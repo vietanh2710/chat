@@ -1,5 +1,5 @@
+import { useEffect, useState } from "react";
 import { orderBy } from "lodash";
-import React, { useEffect, useState } from "react";
 
 import { auth, db } from "services/firesbase";
 import { Channels, Messages, User, Users } from "types";
@@ -32,9 +32,7 @@ const userFireStore = () => {
 
       setUsers(data);
     });
-  }, []);
 
-  useEffect(() => {
     db.collection("channels").onSnapshot((snapshot) => {
       const data = snapshot.docs.map((doc) => {
         const field = doc.data();
@@ -49,9 +47,7 @@ const userFireStore = () => {
 
       setChannels(orderBy(data, ["createdAt", "desc"]));
     });
-  }, []);
 
-  useEffect(() => {
     db.collection("messages").onSnapshot((snapshot) => {
       const data = snapshot.docs.map((doc) => {
         const field = doc.data();
@@ -72,7 +68,7 @@ const userFireStore = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setUser({
-          uid: user?.uid,
+          uid: user.uid,
         });
 
         return;

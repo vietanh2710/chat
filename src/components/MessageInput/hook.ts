@@ -14,7 +14,7 @@ import { IEmojiData } from "emoji-picker-react";
 import { ImageListType } from "react-images-uploading";
 
 import userFireStore from "hooks/useFireStore";
-import { addRecord } from "services/addRecord";
+import { addRecord } from "services/service";
 
 type InitialValues = {
   value: string;
@@ -39,7 +39,7 @@ const useMessageInput = (props: ReceivedProps) => {
       if (user?.uid && props.channelId) {
         addRecord("messages", {
           content: params.value,
-          uid: user?.uid,
+          uid: user.uid,
           channelId: props.channelId,
           createdAt: Date.now(),
         });

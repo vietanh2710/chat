@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import { FC, memo } from "react";
 import moment from "moment";
 
 import { EDIT_ICON, SEARCH_ICON } from "assets";

@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useMemo, useState } from "react";
 
-import { Channels, Messages, User, Users } from "types";
+import { Auth, Channels, Messages, Users } from "types";
 
 export type ReceivedProps = {
   showTabInfor: boolean;
   channelId: string;
-  user: User;
+  auth: Auth;
   users: Users[];
   channels: Channels[];
   messages: Messages[];
@@ -25,13 +25,13 @@ const useChannelMessage = (props: ReceivedProps) => {
   const [heightWrapper, setHeightWrapper] = useState<number>();
 
   const getUser = (uid: string) => {
-    const getUser = props.users.find((item) => item.uid === uid);
+    const result = props.users.find((item) => item.uid === uid);
 
     return {
-      imgText: getUser?.userName.split("")[0] || getUser?.email.split("")[0],
-      backgroundColor: getUser?.backgroundColor,
-      avt: getUser?.avt,
-      userName: getUser?.userName || getUser?.email,
+      imgText: result?.userName.split("")[0] || result?.email.split("")[0],
+      backgroundColor: result?.backgroundColor,
+      avt: result?.avt,
+      userName: result?.userName || result?.email,
     };
   };
 
@@ -41,7 +41,7 @@ const useChannelMessage = (props: ReceivedProps) => {
 
   const channelName = useMemo(() => {
     const getChannel = props.channels.find((i) => i.id === props.channelId);
-    const getUserId = getChannel?.members.find((i) => i !== props.user.uid);
+    const getUserId = getChannel?.members.find((i) => i !== props.auth.uid);
     const getUser = props.users.find((i) => i.uid === getUserId);
 
     if (!getChannel || !getUser) return "";

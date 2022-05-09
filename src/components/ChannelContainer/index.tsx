@@ -1,5 +1,6 @@
-import React, { FC, useState, memo, useEffect } from "react";
+import { FC, useState, memo, useEffect } from "react";
 import { Row, Col } from "antd";
+import { get } from "lodash";
 
 import {
   ChannelInfor,
@@ -10,7 +11,6 @@ import {
 } from "components";
 import userFireStore from "hooks/useFireStore";
 import { ChannelContainer } from "./styles";
-import { get, isEmpty } from "lodash";
 
 const Channel: FC = () => {
   const { user, users, messages, channels } = userFireStore();
@@ -26,12 +26,21 @@ const Channel: FC = () => {
     setChannelId(get(channelList, "[0].id", ""));
   }, [channels]);
 
-  if (!user || isEmpty(channels)) return <Loading />;
+  const auth = users.find((item) => item.uid === user?.uid);
+
+  if (!auth || !users) return <Loading />;
+
+  const fireStore = {
+    auth: auth,
+    users: users,
+    messages: messages,
+    channels: channels,
+  };
 
   return (
     <Row>
       <Col span={2}>
-        <MenuLeft />
+        <MenuLeft auth={auth} users={users} />
       </Col>
 
       <Col span={22}>
@@ -40,19 +49,13 @@ const Channel: FC = () => {
             <ChannelList
               channelId={channelId}
               setChannelId={setChannelId}
-              user={user}
-              users={users}
-              messages={messages}
-              channels={channels}
+              {...fireStore}
             />
 
             <MessageList
               channelId={channelId}
               showTabInfor={showTabInfor}
-              user={user}
-              users={users}
-              messages={messages}
-              channels={channels}
+              {...fireStore}
               setShowTabInfor={setShowTabInfor}
             />
 

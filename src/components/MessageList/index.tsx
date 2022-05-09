@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import { FC, memo } from "react";
 import moment from "moment";
 
 import { INFO_ICON } from "assets";
@@ -12,7 +12,7 @@ const MessageListLayout: FC<Props> = ({
   currentMessage,
   heightWrapper,
   data,
-  user,
+  auth,
   channelId,
   channelName,
   getUser,
@@ -46,7 +46,7 @@ const MessageListLayout: FC<Props> = ({
         <div className="message-list">
           {data.map((i, index: number) => {
             const parseTimeStamp = moment.unix(i.createdAt);
-            const isUser = user?.uid === i.uid;
+            const isUser = auth.uid === i.uid;
             const { avt, imgText, backgroundColor, userName } = getUser(i.uid);
 
             return (

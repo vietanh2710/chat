@@ -6,7 +6,7 @@ import * as Yup from "yup";
 
 import { ROUTES, STATUS } from "common/constant";
 import { signin, setAuthLocalStorage, signup } from "common/auth";
-import { addRecord } from "services/addRecord";
+import { addRecord } from "services/service";
 
 type InitialValues = {
   email: string;
