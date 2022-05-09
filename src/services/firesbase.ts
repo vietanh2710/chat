@@ -4,13 +4,13 @@ import "firebase/compat/database";
 import "firebase/compat/firestore";
 
 const firebaseConfig = {
-  apiKey: process.env.FIRE_BASE_API_KEY,
-  authDomain: process.env.FIRE_BASE_CHAT_DOMAIN,
-  projectId: process.env.FIRE_BASE_PROJECT_ID,
-  storageBucket: process.env.FIRE_BASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIRE_BASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIRE_BASE_APP_ID,
-  measurementId: process.env.FIRE_BASE_MEASUREMENT_ID,
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_CHAT_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
