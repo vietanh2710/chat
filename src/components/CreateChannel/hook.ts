@@ -27,12 +27,12 @@ const useCreateChannel = (props: ReceivedProps) => {
   const convertUsers = users.filter((i) => i.uid !== user?.uid);
 
   const onSubmit = (response: InitialValues) => {
-    if (isEmpty(response.members)) return;
+    if (isEmpty(allUser)) return;
 
     addRecord("channels", {
       channelName: response.channelName,
       description: response.description,
-      members: [...users, user?.uid],
+      members: [...allUser, user?.uid],
       createdAt: Date.now(),
     });
     formik.resetForm();
