@@ -13,24 +13,43 @@ import { isEmpty, isNil } from "lodash";
 import { IEmojiData } from "emoji-picker-react";
 import { ImageListType } from "react-images-uploading";
 
+import userFireStore from "hooks/useFireStore";
+import { addRecord } from "services/addRecord";
+
 type InitialValues = {
   value: string;
 };
 
 export type ReceivedProps = {
+  channelId?: string;
   setHeightWrapper: Dispatch<SetStateAction<number | undefined>>;
 };
 
 const useMessageInput = (props: ReceivedProps) => {
+  const { user } = userFireStore();
+
   const [images, setImages] = useState<ImageListType>([]);
   const [isEmoji, setEmoji] = useState<boolean>(false);
   const [inputHeight, setInputHeight] = useState<number>();
 
   const onUploadImg = (imageList: ImageListType) => setImages(imageList);
 
-  const onSubmit = (params: InitialValues) => {
-    formik.resetForm();
-    setImages([]);
+  const onSubmit = async (params: InitialValues) => {
+    try {
+      if (user?.uid && props.channelId) {
+        addRecord("messages", {
+          content: params.value,
+          uid: user?.uid,
+          channelId: props.channelId,
+          createdAt: Date.now(),
+        });
+
+        formik.resetForm();
+        setImages([]);
+      }
+    } catch (error) {
+      console.log("error :>> ", { error });
+    }
   };
 
   const formik = useFormik({

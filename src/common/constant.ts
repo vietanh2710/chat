@@ -9,6 +9,7 @@ export const ROUTES = {
   REGISTER: "/register",
   FORGOT_PASSWORD: "/forgot-password",
   LOGIN: "/login",
+  CHANNEL_ID: "/:id",
 };
 
 export const STATUS = {

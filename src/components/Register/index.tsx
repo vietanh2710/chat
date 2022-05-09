@@ -63,18 +63,18 @@ const RegisterView: FC<Props> = ({ formik }) => {
             </button>
           </form>
 
-          <div className="third-login">
+          {/* <div className="third-login">
             <span>or Login with</span>
-          </div>
+          </div> */}
 
-          <div className="btn-login-wrapper">
+          {/* <div className="btn-login-wrapper">
             <button className="btn-third-login">
               <img src={GOOGLE_ICON} alt="" /> <div>Google</div>
             </button>
             <button className="btn-third-login">
               <img src={FACEBOOK_ICON} alt="" /> <div>Facebook</div>
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </RegisterContainer>

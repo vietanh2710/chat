@@ -4,6 +4,7 @@ import { Outlet, useRoutes } from "react-router-dom";
 import { Loading } from "components";
 import { ROUTES } from "common/constant";
 import ProtectedRoutes from "./ProtectedRoutes";
+import userFireStore from "hooks/useFireStore";
 
 const CommonLayout = lazy(() => import("../components/CommonLayout"));
 const Login = lazy(() => import("../components/Login"));
@@ -16,6 +17,7 @@ const NotFoundPage: FC = () => <p>There is nothing here: 404!</p>;
 const AppRoutes: FC = () => {
   const user = localStorage.getItem("user");
   const isLogged = user ? JSON.parse(user).user : false;
+  const { loading } = userFireStore();
 
   const element = useRoutes([
     {
@@ -67,6 +69,8 @@ const AppRoutes: FC = () => {
       ),
     },
   ]);
+
+  if (loading) return <Loading />;
 
   return <Suspense fallback={<Loading />}>{element}</Suspense>;
 };

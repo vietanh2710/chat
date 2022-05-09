@@ -3,36 +3,79 @@ import { isEmpty } from "lodash";
 import { Popover } from "antd";
 
 import { XMARK_ICON } from "assets";
-import { MessageInput } from "components";
+import { Modal } from "components";
 import useCreateChannel, { Props, ReceivedProps } from "./hook";
 import { CreateChannelContainer } from "./style";
 
 const CreateChannelLayout: FC<Props> = ({
+  formik,
   createChannel,
-  data,
   users,
   visible,
   filterUsersActive,
   filterListUsers,
-  heightWrapper,
-  setHeightWrapper,
   addUser,
   removeUser,
   setVisible,
   setCreateChannel,
 }) => {
   return (
-    <>
-      {createChannel && (
-        <CreateChannelContainer span={18} heightWrapper={heightWrapper}>
-          <div className="header" onClick={() => setVisible(!visible)}>
-            <div className="search">To: </div>
+    <Modal isModalVisible={createChannel}>
+      <CreateChannelContainer>
+        <form onSubmit={formik.handleSubmit}>
+          <div className="create-channel">
+            <label>Channel Name: </label>
+            <input
+              type="text"
+              onClick={() => setVisible(false)}
+              {...formik.getFieldProps("channelName")}
+            />
+
+            <label>Discription: </label>
+            <input
+              type="text"
+              onClick={() => setVisible(false)}
+              {...formik.getFieldProps("description")}
+            />
+
+            <div className="search" onClick={() => setVisible(!visible)}>
+              To:{" "}
+            </div>
             <div className="users-active">
               {users.length > 0 &&
-                filterUsersActive.map((item, index) => (
+                filterUsersActive.map((i, index: number) => (
                   <div className="item" key={index}>
-                    <img src={item.avt} alt="" width={20} height={20} />
-                    <div>{item.userName}</div>
+                    {i.avt ? (
+                      <img
+                        src={i.avt}
+                        alt=""
+                        width={28}
+                        height={28}
+                        style={{
+                          borderRadius: 50,
+                          marginRight: 10,
+                        }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          backgroundColor: i.backgroundColor,
+                          textTransform: "uppercase",
+                          borderRadius: 50,
+                          width: 28,
+                          height: 28,
+                          fontWeight: 600,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#fff",
+                          marginRight: 10,
+                        }}
+                      >
+                        {i.userName.split("")[0] || i.email.split("")[0]}
+                      </div>
+                    )}
+                    <div>{i.userName || i.email}</div>
                     <img
                       src={XMARK_ICON}
                       alt=""
@@ -42,7 +85,7 @@ const CreateChannelLayout: FC<Props> = ({
                           setCreateChannel(false);
                         }
                         setVisible(false);
-                        removeUser(item);
+                        removeUser(i.uid);
                       }}
                     />
                   </div>
@@ -53,11 +96,11 @@ const CreateChannelLayout: FC<Props> = ({
               <Popover
                 content={
                   <div className="list-users">
-                    {filterListUsers.map((item, index) => (
+                    {filterListUsers.map((i, index: number) => (
                       <div
                         className="item"
                         key={index}
-                        onClick={() => addUser(item)}
+                        onClick={() => addUser(i.uid)}
                         style={{
                           display: "flex",
                           alignItems: "center",
@@ -65,7 +108,34 @@ const CreateChannelLayout: FC<Props> = ({
                           cursor: "pointer",
                         }}
                       >
-                        <img src={item.avt} alt="" width={25} height={25} />
+                        {i.avt ? (
+                          <img
+                            src={i.avt}
+                            alt=""
+                            style={{
+                              borderRadius: 50,
+                            }}
+                            width={32}
+                            height={32}
+                          />
+                        ) : (
+                          <div
+                            style={{
+                              backgroundColor: i.backgroundColor,
+                              textTransform: "uppercase",
+                              borderRadius: 50,
+                              width: 32,
+                              height: 32,
+                              fontWeight: 600,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              color: "#fff",
+                            }}
+                          >
+                            {i.userName.split("")[0] || i.email.split("")[0]}
+                          </div>
+                        )}
                         <div
                           className="user-name"
                           style={{
@@ -73,7 +143,7 @@ const CreateChannelLayout: FC<Props> = ({
                             paddingLeft: 14,
                           }}
                         >
-                          {item.userName}
+                          {i.userName || i.email}
                         </div>
                       </div>
                     ))}
@@ -86,12 +156,21 @@ const CreateChannelLayout: FC<Props> = ({
             )}
           </div>
 
-          <div className="message-list" onClick={() => setVisible(false)}></div>
+          <div className="btn-wrapper">
+            <button
+              className="btn-cancel"
+              onClick={() => setCreateChannel(false)}
+            >
+              Cancel
+            </button>
 
-          <MessageInput setHeightWrapper={setHeightWrapper} />
-        </CreateChannelContainer>
-      )}
-    </>
+            <button className="btn-submit" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </CreateChannelContainer>
+    </Modal>
   );
 };
 

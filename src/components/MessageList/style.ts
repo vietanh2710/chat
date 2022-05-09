@@ -84,10 +84,24 @@ export const MessageListContainer = styled(Col).attrs(
       align-items: flex-start;
       cursor: pointer;
 
-      &.owner {
+      .img-text {
+        text-transform: uppercase;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        border-radius: 50%;
+        color: #fff;
+      }
+
+      &.user {
         align-items: flex-end;
 
-        .user-avt {
+        .user-avt,
+        .img-text {
           display: none;
         }
 
@@ -104,6 +118,7 @@ export const MessageListContainer = styled(Col).attrs(
         .user-avt {
           width: 30px;
           height: 30px;
+          border-radius: 50%;
         }
 
         .message {

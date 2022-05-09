@@ -4,6 +4,7 @@ import { get, isEmpty } from "lodash";
 
 import { Modal } from "components";
 import useProfile, { Props, ReceivedProps } from "./hook";
+import { ProfileContainer } from "./style";
 
 const ProfileView: FC<Props> = ({
   isModalVisible,
@@ -11,6 +12,7 @@ const ProfileView: FC<Props> = ({
   user,
   images,
   formik,
+  getUser,
   onOk,
   onChangeImg,
   onCancel,
@@ -18,12 +20,12 @@ const ProfileView: FC<Props> = ({
   return (
     <Modal isModalVisible={isModalVisible}>
       <form onSubmit={formik.handleSubmit}>
-        <div className="profile">
+        <ProfileContainer>
           <div className="avt-img">
             <img
               src={
                 get(images, "[0].dataURL") ||
-                user?.avt ||
+                getUser?.avt ||
                 "https://img.icons8.com/office/344/conference-call.png"
               }
               alt=""
@@ -44,7 +46,7 @@ const ProfileView: FC<Props> = ({
             <label>
               {editProfile && <span>*</span>}
               Email:
-              {!editProfile && <div>{user?.email}</div>}
+              {!editProfile && <div>{getUser?.email}</div>}
             </label>
             {editProfile && (
               <input
@@ -64,7 +66,7 @@ const ProfileView: FC<Props> = ({
 
             <label>
               User Name:
-              {!editProfile && <div>{user?.userName}</div>}
+              {!editProfile && <div>{getUser?.userName}</div>}
             </label>
             {editProfile && (
               <input type="text" {...formik.getFieldProps("userName")} />
@@ -72,7 +74,7 @@ const ProfileView: FC<Props> = ({
 
             <label>
               Full Name:
-              {!editProfile && <div>{user?.fullName}</div>}
+              {!editProfile && <div>{getUser?.fullName}</div>}
             </label>
             {editProfile && (
               <input type="text" {...formik.getFieldProps("fullName")} />
@@ -109,7 +111,7 @@ const ProfileView: FC<Props> = ({
               </button>
             )}
           </div>
-        </div>
+        </ProfileContainer>
       </form>
     </Modal>
   );

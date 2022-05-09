@@ -1,7 +1,18 @@
 import React, { FC } from "react";
 
 const Loading: FC = () => {
-  return <div>Loading...</div>;
+  return (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      Loading...
+    </div>
+  );
 };
 
 export default Loading;

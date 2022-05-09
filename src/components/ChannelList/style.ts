@@ -94,8 +94,17 @@ export const ChannelListContainer = styled(Col)`
           border-radius: 50%;
         }
 
-        & > div {
-          padding-left: 10px;
+        .img-text {
+          text-transform: uppercase;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 500;
+          font-size: 23px;
+          color: #fff;
         }
       }
 
@@ -128,6 +137,7 @@ export const ChannelListContainer = styled(Col)`
           background-color: #31a24c;
           border-radius: 50%;
           margin-right: 6px;
+          margin-left: 10px;
         }
 
         .last-message {
@@ -141,6 +151,7 @@ export const ChannelListContainer = styled(Col)`
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          margin-left: 10px;
         }
       }
 

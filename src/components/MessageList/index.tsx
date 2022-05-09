@@ -6,83 +6,95 @@ import { DATE_TIME_FORMAT } from "common/constant";
 import { MessageInput } from "components";
 import useChannelMessage, { Props, ReceivedProps } from "./hook";
 import { MessageListContainer } from "./style";
-import data from "./data.json";
 
 const MessageListLayout: FC<Props> = ({
-  createChannel,
   showTabInfor,
   currentMessage,
   heightWrapper,
+  data,
+  user,
+  channelId,
+  channelName,
+  getUser,
   setHeightWrapper,
   setShowTabInfor,
   setCurrentMessage,
 }) => {
   return (
     <>
-      {!createChannel && (
-        <MessageListContainer
-          span={showTabInfor ? 13 : 18}
-          heightWrapper={heightWrapper}
-        >
-          <div className="header">
-            <img
-              src="https://img.icons8.com/office/344/conference-call.png"
-              alt=""
-              className="header-channel-img"
-            />
-            <div className="text">Channel</div>
-            <img
-              src={INFO_ICON}
-              alt=""
-              className="icon-info"
-              onClick={() => {
-                setShowTabInfor(!showTabInfor);
-              }}
-            />
-          </div>
+      <MessageListContainer
+        span={showTabInfor ? 13 : 18}
+        heightWrapper={heightWrapper}
+      >
+        <div className="header">
+          <img
+            src="https://img.icons8.com/office/344/conference-call.png"
+            alt=""
+            className="header-channel-img"
+          />
+          <div className="text">{channelName}</div>
+          <img
+            src={INFO_ICON}
+            alt=""
+            className="icon-info"
+            onClick={() => {
+              setShowTabInfor(!showTabInfor);
+            }}
+          />
+        </div>
 
-          <div className="message-list">
-            {data.map((item, index) => {
-              const parseTimeStamp = moment.unix(item.lastTime);
+        <div className="message-list">
+          {data.map((i, index: number) => {
+            const parseTimeStamp = moment.unix(i.createdAt);
+            const isUser = user?.uid === i.uid;
+            const { avt, imgText, backgroundColor, userName } = getUser(i.uid);
 
-              return (
-                <div className={`item ${!item.owner && "owner"}`} key={index}>
-                  <div className="item-wrapper">
-                    <img src={item.avt} alt="" className="user-avt" />
+            return (
+              <div className={`item ${isUser && "user"}`} key={index}>
+                <div className="item-wrapper">
+                  {avt ? (
+                    <img src={avt} alt="" className="user-avt" />
+                  ) : (
                     <div
-                      className="message"
-                      onClick={() =>
-                        setCurrentMessage({
-                          open:
-                            index === currentMessage.index &&
-                            currentMessage.open
-                              ? false
-                              : true,
-                          index,
-                        })
-                      }
+                      className="img-text"
+                      style={{
+                        backgroundColor: backgroundColor,
+                      }}
                     >
-                      {item.message}
-                    </div>
-                  </div>
-                  {currentMessage.open && currentMessage.index === index && (
-                    <div className="message-time">
-                      {item.owner && <span>{item.userName} </span>}
-                      {parseTimeStamp.format(DATE_TIME_FORMAT.DATE_TIME)}
+                      {imgText}
                     </div>
                   )}
+                  <div
+                    className="message"
+                    onClick={() =>
+                      setCurrentMessage({
+                        open:
+                          index === currentMessage.index && currentMessage.open
+                            ? false
+                            : true,
+                        index,
+                      })
+                    }
+                  >
+                    {i.content}
+                  </div>
                 </div>
-              );
-            })}
+                {currentMessage.open && currentMessage.index === index && (
+                  <div className="message-time">
+                    {!isUser && <span>{userName}</span>}{" "}
+                    {parseTimeStamp.format(DATE_TIME_FORMAT.DATE_TIME)}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
 
-            {/* <div className="time">
-              <span>Today at 7:00pm</span>
-            </div> */}
-          </div>
-
-          <MessageInput setHeightWrapper={setHeightWrapper} />
-        </MessageListContainer>
-      )}
+        <MessageInput
+          setHeightWrapper={setHeightWrapper}
+          channelId={channelId}
+        />
+      </MessageListContainer>
     </>
   );
 };

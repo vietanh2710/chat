@@ -9,6 +9,8 @@
       "common/*": ["./src/common/*"],
       "services/*": ["./src/services/*"],
       "service": ["./src/services"],
+      "hooks/*": ["./src/hooks/*"],
+      "hooks": ["./src/hooks"],
       "routes/*": ["./src/routes/*"]
     }
   }

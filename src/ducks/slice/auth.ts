@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
 import { User } from "types";
 
 type InitialState = {
@@ -14,16 +13,16 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setLogin(state, action: PayloadAction<User>) {
+    setAuth(state, action: PayloadAction<User>) {
       state.user = action.payload;
     },
 
-    setLogout(state) {
+    resetAuth(state) {
       state.user = null;
     },
   },
 });
 
-export const { setLogin, setLogout } = authSlice.actions;
+export const { setAuth, resetAuth } = authSlice.actions;
 
 export default authSlice;

@@ -1,26 +1,35 @@
-import React, { Dispatch, FC, SetStateAction, memo } from "react";
+import React, { FC, memo } from "react";
 import moment from "moment";
 
 import { EDIT_ICON, SEARCH_ICON } from "assets";
 import { DATE_TIME_FORMAT } from "common/constant";
+import { CreateChannel } from "components";
 import { ChannelListContainer } from "./style";
-import data from "./data.json";
+import useChannelList, { Props, ReceivedProps } from "./hook";
 
-interface IProps {
-  createChannel: boolean;
-  setCreateChannel: Dispatch<SetStateAction<boolean>>;
-}
-
-const ChannelList: FC<IProps> = ({ setCreateChannel }) => {
+const ChannelListView: FC<Props> = ({
+  setChannelId,
+  getProfile,
+  setCreateChannel,
+  lastMessage,
+  createChannel,
+  data,
+}) => {
   return (
     <ChannelListContainer span={6}>
       <div className="header">
         <p className="text">Chat</p>
-        <div
-          className="icon-edit-wrapper"
-          onClick={() => setCreateChannel(true)}
-        >
-          <img src={EDIT_ICON} alt="" className="icon-edit" />
+        <div className="icon-edit-wrapper">
+          <img
+            src={EDIT_ICON}
+            alt=""
+            className="icon-edit"
+            onClick={() => setCreateChannel(true)}
+          />
+          <CreateChannel
+            createChannel={createChannel}
+            setCreateChannel={setCreateChannel}
+          />
         </div>
         <div className="search-wrapper">
           <img src={SEARCH_ICON} alt="" className="icon-search" />
@@ -29,26 +38,50 @@ const ChannelList: FC<IProps> = ({ setCreateChannel }) => {
       </div>
 
       <div className="channel-list">
-        {data.map((item, index) => {
+        {data.map((i, index) => {
+          const { imgText, backgroundColor, avt, userName } = getProfile(
+            i.members
+          );
+
           return (
             <div
               className="item"
               key={index}
-              onClick={() => setCreateChannel(false)}
+              onClick={() => {
+                setChannelId(i.id);
+              }}
             >
               <div className="item-wrapper">
-                <img src={item.channelImg} alt="" className="channel-image" />
+                {avt ? (
+                  <img src={avt} alt="" className="channel-image" />
+                ) : (
+                  <div
+                    className="img-text"
+                    style={{
+                      backgroundColor: backgroundColor,
+                    }}
+                  >
+                    {imgText}
+                  </div>
+                )}
+
                 <div className="preview">
                   <div>
-                    <div className="channel-name">{item.channelName}</div>
+                    <div className="channel-name">
+                      {i.members.length > 2 ? i.channelName : userName}
+                    </div>
                     <div className="active"></div>
                   </div>
-                  <div className="last-message">{item.lastMessage}</div>
+                  <div className="last-message">
+                    {lastMessage(i.id)?.content}
+                  </div>
                 </div>
               </div>
 
               <div className="last-time">
-                {moment.unix(item.lastTime).format(DATE_TIME_FORMAT.DATE_TIME)}
+                {moment
+                  .unix(lastMessage(i.id)?.createdAt || i.createdAt)
+                  .format(DATE_TIME_FORMAT.TIME)}
               </div>
             </div>
           );
@@ -57,5 +90,9 @@ const ChannelList: FC<IProps> = ({ setCreateChannel }) => {
     </ChannelListContainer>
   );
 };
+
+const ChannelList: FC<ReceivedProps> = (props) => (
+  <ChannelListView {...useChannelList(props)} />
+);
 
 export default memo(ChannelList);

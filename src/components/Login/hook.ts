@@ -1,14 +1,12 @@
 import { useFormik } from "formik";
-import { isEmpty } from "lodash";
+import { get, isEmpty } from "lodash";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useGoogleLogin } from "react-google-login";
-import sha256 from "sha256";
 import * as Yup from "yup";
 
 import { ROUTES, STATUS } from "common/constant";
-import { setLogin } from "../../ducks/slice/auth";
-import { handleActions } from "common/auth";
+import { signin, setAuthLocalStorage, signup } from "common/auth";
+import { addRecord } from "services/addRecord";
 
 type InitialValues = {
   email: string;
@@ -18,20 +16,19 @@ type InitialValues = {
 
 const useLogin = () => {
   const navigate = useNavigate();
-  const dispath = useDispatch();
 
-  const onSubmit = (response: InitialValues) => {
+  const onSubmit = async (response: InitialValues) => {
     if (!isEmpty(response.email)) {
-      handleActions({ accessToken: sha256(response.password), user: true });
+      try {
+        await signin(response.email, response.password).then((res) => {
+          setAuthLocalStorage();
 
-      dispath(
-        setLogin({
-          email: response.email,
-        })
-      );
-
-      navigate(ROUTES.CHAT);
-      formik.resetForm();
+          navigate(ROUTES.CHAT);
+          formik.resetForm();
+        });
+      } catch (error) {
+        console.log("error :>> ", { error });
+      }
     }
   };
 
@@ -48,20 +45,46 @@ const useLogin = () => {
     onSubmit: (values) => onSubmit(values),
   });
 
-  const responseGoogle = (response: any) => {
+  const responseGoogle = async (response: any) => {
     if (response?.error === STATUS.CLOSE_POPUP_GOOGLE) {
-      handleActions({ accessToken: "", user: false });
+      localStorage.removeItem("user");
     }
-    handleActions({ accessToken: response.accessToken, user: true });
-    dispath(
-      setLogin({
-        email: response.profileObj.email,
-        userName: response.profileObj.givenName,
-        fullName: response.profileObj.name,
-        avt: response.profileObj.imageUrl,
-      })
-    );
-    navigate(ROUTES.CHAT);
+
+    try {
+      await signup(response.profileObj.email, response.googleId).then((res) => {
+        if (
+          res.additionalUserInfo?.isNewUser &&
+          res.user?.uid &&
+          res.user?.email
+        ) {
+          addRecord("users", {
+            uid: res.user.uid,
+            email: res.user.email,
+            avt: response.profileObj.imageUrl,
+            fullName: response.profileObj.name,
+            userName: response.profileObj.givenName,
+            providerId: res?.additionalUserInfo?.providerId,
+            backgroundColor:
+              "#" + (((1 << 24) * Math.random()) | 0).toString(16),
+            createdAt: Date.now(),
+          });
+        }
+      });
+
+      setAuthLocalStorage();
+      navigate(ROUTES.CHAT);
+    } catch (error) {
+      const getErr = get(error, "code");
+      if (getErr === "auth/email-already-in-use") {
+        await signin(response.profileObj.email, response.googleId).then(
+          (res) => {
+            setAuthLocalStorage();
+            navigate(ROUTES.CHAT);
+          }
+        );
+      }
+      console.log("error :>> ", { error });
+    }
   };
 
   const { signIn, loaded } = useGoogleLogin({

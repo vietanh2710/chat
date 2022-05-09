@@ -1,28 +1,31 @@
-export interface DataChannelList {
-  channelId: number;
+export interface Channels {
+  id: string;
+  description?: string;
   channelName: string;
-  channelImg: string;
-  lastMessage: string;
-  lastTime: number;
+  members: string[];
+  createdAt: number;
 }
 
-export interface DataChannelMessage {
-  message: string;
-  lastTime: number;
-  owner: boolean;
-  userName: string;
-  avt: string;
+export interface Messages {
+  id: string;
+  uid: string;
+  channelId: string;
+  content: string;
+  createdAt: number;
 }
 
-export interface ListUsers {
-  id: number;
-  userName: string;
+export interface Users {
+  id: string;
+  uid: string;
+  email: string;
   avt: string;
+  fullName: string;
+  userName: string;
+  backgroundColor: string;
+  providerId: string;
+  createdAt: number;
 }
 
 export interface User {
-  email: string;
-  avt?: string;
-  userName?: string;
-  fullName?: string;
+  uid: string;
 }

@@ -1,11 +1,11 @@
 import { useState, Dispatch, SetStateAction } from "react";
-import { useSelector } from "react-redux";
 import { ImageListType } from "react-images-uploading";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { isEmpty, omit } from "lodash";
 
-import { authSelector } from "../../ducks/selector";
+import userFireStore from "hooks/useFireStore";
+import { getProfile } from "common/auth";
 
 export type ReceivedProps = {
   setIsModalVisible: Dispatch<SetStateAction<boolean>>;
@@ -20,10 +20,9 @@ type InitialValues = {
 };
 
 const useProfile = (props: ReceivedProps) => {
+  const { user } = userFireStore();
   const [images, setImages] = useState<ImageListType>([]);
   const [editProfile, setEditProfile] = useState<boolean>(false);
-
-  const { user } = useSelector(authSelector);
 
   const onChangeImg = (imageList: ImageListType) => setImages(imageList);
 
@@ -33,12 +32,14 @@ const useProfile = (props: ReceivedProps) => {
     console.log("response :>> ", omit(response, "password"));
   };
 
+  const getUser = getProfile(user?.uid || "");
+
   const formik = useFormik({
     initialValues: {
-      email: user?.email || "",
+      email: getUser?.email || "",
       password: "",
-      userName: user?.userName || "",
-      fullName: user?.fullName || "",
+      userName: getUser?.userName || "",
+      fullName: getUser?.fullName || "",
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().email("Email in valid"),
@@ -63,6 +64,7 @@ const useProfile = (props: ReceivedProps) => {
     user,
     images,
     formik,
+    getUser,
     onSubmit,
     onOk,
     onCancel,

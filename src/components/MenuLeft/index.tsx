@@ -5,9 +5,8 @@ import { useDispatch } from "react-redux";
 
 import { LOGOUT_ICON, PERSON_ICON } from "assets";
 import { ROUTES } from "common/constant";
-import { handleActions } from "common/auth";
 import { Profile } from "components";
-import { setLogout } from "../../ducks/slice/auth";
+import { resetAuth } from "../../ducks/slice/auth";
 import { MenuLeftContainer } from "./style";
 
 const MenuLeft: FC = () => {
@@ -17,8 +16,8 @@ const MenuLeft: FC = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const onLogout = () => {
-    handleActions({ accessToken: "", user: false });
-    dispath(setLogout());
+    localStorage.removeItem("user");
+    dispath(resetAuth());
     navigate(ROUTES.LOGIN);
   };
 
