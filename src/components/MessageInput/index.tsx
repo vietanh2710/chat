@@ -1,6 +1,7 @@
 import { FC, memo } from "react";
 import ImageUploading from "react-images-uploading";
 import Picker from "emoji-picker-react";
+import { isEmpty } from "lodash";
 
 import useMessageInput, { Props, ReceivedProps } from "./hook";
 import {
@@ -116,11 +117,19 @@ const MessageInputLayout: FC<Props> = ({
                       onClick={() => setEmoji(false)}
                     />
 
-                    <button type="submit" className="btn-submit">
+                    <div className="btn-submit">
                       <img src={LIKE_ICON} alt="" className="icon-like" />
-                    </button>
+                    </div>
 
-                    <button type="submit" className="btn-submit">
+                    <button
+                      type="submit"
+                      className="btn-submit"
+                      style={{
+                        cursor: isEmpty(formik.getFieldProps("value").value)
+                          ? "not-allowed"
+                          : "pointer",
+                      }}
+                    >
                       <img
                         src={PAPER_PLANE_ICON}
                         alt=""

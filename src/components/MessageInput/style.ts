@@ -99,7 +99,6 @@ export const MessageInputContainer = styled.div.attrs(
         width: 20px;
         height: 20px;
         transform: rotate(45deg);
-        cursor: pointer;
       }
 
       .icon-like {

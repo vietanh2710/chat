@@ -37,11 +37,13 @@ const useMessageInput = (props: ReceivedProps) => {
 
   const onUploadImg = (imageList: ImageListType) => setImages(imageList);
 
-  const onSubmit = async (params: InitialValues) => {
+  const onSubmit = async (response: InitialValues) => {
+    if (isEmpty(response.value)) return;
+
     try {
       if (user?.uid && props.channelId) {
         addRecord(COLLECTION.MESSAGES, {
-          content: params.value,
+          content: response.value,
           uid: user.uid,
           channelId: props.channelId,
           createdAt: moment().unix(),
