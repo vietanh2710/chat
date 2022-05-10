@@ -3,6 +3,7 @@ export interface Channels {
   description?: string;
   channelName: string;
   members: string[];
+  owner: string;
   createdAt: number;
 }
 
@@ -26,7 +27,7 @@ export interface Users {
   createdAt: number;
 }
 
-export interface User {
+export interface UserUid {
   uid: string;
 }
 

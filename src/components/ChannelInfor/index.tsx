@@ -2,14 +2,18 @@ import { FC } from "react";
 import { Collapse } from "antd";
 
 import { ChannelInforContainer } from "./style";
+import useChannelInfor, { ReceivedProps, Props } from "./hook";
 
 const { Panel } = Collapse;
 
-interface IProps {
-  showTabInfor: boolean;
-}
-
-const ChannelInfor: FC<IProps> = ({ showTabInfor }) => {
+const ChannelInforView: FC<Props> = ({
+  showTabInfor,
+  channelName,
+  users,
+  auth,
+  channelInfor,
+}) => {
+  const { members, owner } = channelInfor();
   return (
     <>
       {showTabInfor && (
@@ -19,7 +23,7 @@ const ChannelInfor: FC<IProps> = ({ showTabInfor }) => {
             alt=""
             className="infor-img"
           />
-          <div className="name">Channel</div>
+          <div className="name">{channelName}</div>
 
           <Collapse
             defaultActiveKey={["1"]}
@@ -29,29 +33,30 @@ const ChannelInfor: FC<IProps> = ({ showTabInfor }) => {
           >
             <Panel header="Chat memebers" key="1" className="pannel-header">
               <div className="members-list">
-                <div className="item">
-                  <img
-                    src="https://img.icons8.com/office/344/user-male-circle.png"
-                    alt=""
-                    className="user-avt"
-                  />
-                  <div className="user">
-                    <p className="user-name">User Name</p>
-                    <p className="position">member</p>
-                  </div>
-                </div>
-
-                <div className="item">
-                  <img
-                    src="https://img.icons8.com/office/344/user-female-circle.png"
-                    alt=""
-                    className="user-avt"
-                  />
-                  <div className="user">
-                    <p className="user-name">User Name</p>
-                    <p className="position">member</p>
-                  </div>
-                </div>
+                {members.map((i, index) => {
+                  return (
+                    <div className="item" key={index}>
+                      {i.avt ? (
+                        <img src={i.avt} alt="" className="user-avt" />
+                      ) : (
+                        <div
+                          className="img-text"
+                          style={{
+                            backgroundColor: i.backgroundColor,
+                          }}
+                        >
+                          {i.userName.split("")[0] || i.email.split("")[0]}
+                        </div>
+                      )}
+                      <div className="user">
+                        <p className="user-name">{i.userName || i.email}</p>
+                        <p className="position">
+                          {i.uid !== owner && "member"}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </Panel>
             <Panel header="Photos" key="2" className="pannel-header"></Panel>
@@ -67,5 +72,9 @@ const ChannelInfor: FC<IProps> = ({ showTabInfor }) => {
     </>
   );
 };
+
+const ChannelInfor: FC<ReceivedProps> = (props) => (
+  <ChannelInforView {...useChannelInfor(props)} />
+);
 
 export default ChannelInfor;

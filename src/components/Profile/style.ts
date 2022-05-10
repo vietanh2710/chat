@@ -25,11 +25,6 @@ export const ProfileContainer = styled.div`
     flex: 1;
 
     label {
-      > span {
-        color: #ff1e1e;
-        margin-right: 5px;
-      }
-
       > div {
         margin-left: 5px;
         font-weight: 400;

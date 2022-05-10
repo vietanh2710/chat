@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { orderBy } from "lodash";
 
 import { auth, db } from "services/firesbase";
-import { Channels, Messages, User, Users } from "types";
+import { Channels, Messages, UserUid, Users } from "types";
 
 const userFireStore = () => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserUid>();
   const [users, setUsers] = useState<Users[]>([]);
   const [channels, setChannels] = useState<Channels[]>([]);
   const [messages, setMessages] = useState<Messages[]>([]);
@@ -40,8 +40,9 @@ const userFireStore = () => {
           id: doc.id,
           channelName: field.channelName,
           members: field.members,
-          createdAt: field.createdAt,
           description: field.description,
+          owner: field.owner,
+          createdAt: field.createdAt,
         };
       });
 

@@ -59,7 +59,11 @@ const Channel: FC = () => {
               setShowTabInfor={setShowTabInfor}
             />
 
-            <ChannelInfor showTabInfor={showTabInfor} />
+            <ChannelInfor
+              showTabInfor={showTabInfor}
+              channelId={channelId}
+              {...fireStore}
+            />
           </Row>
         </ChannelContainer>
       </Col>

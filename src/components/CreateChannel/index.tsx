@@ -38,9 +38,9 @@ const CreateChannelLayout: FC<Props> = ({
               {...formik.getFieldProps("description")}
             />
 
-            <div className="search" onClick={() => setVisible(!visible)}>
-              To:{" "}
-            </div>
+            <label className="search" onClick={() => setVisible(!visible)}>
+              <span>*</span> To:{" "}
+            </label>
             <div className="users-active">
               {users.length > 0 &&
                 filterUsersActive.map((i, index: number) => (
@@ -164,7 +164,17 @@ const CreateChannelLayout: FC<Props> = ({
               Cancel
             </button>
 
-            <button className="btn-submit" type="submit">
+            <button
+              type="submit"
+              disabled={
+                !isEmpty(formik.errors) || isEmpty(formik.values.members)
+              }
+              className={`btn-submit ${
+                !isEmpty(formik.errors) || isEmpty(formik.values.members)
+                  ? "disable"
+                  : ""
+              }`}
+            >
               Submit
             </button>
           </div>

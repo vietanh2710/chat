@@ -26,6 +26,7 @@ export type ReceivedProps = {
 };
 
 const useMessageInput = (props: ReceivedProps) => {
+  const inputFileRef: MutableRefObject<any> = useRef(null);
   const { user } = userFireStore();
 
   const [images, setImages] = useState<ImageListType>([]);
@@ -42,8 +43,8 @@ const useMessageInput = (props: ReceivedProps) => {
           uid: user.uid,
           channelId: props.channelId,
           createdAt: Date.now(),
+          images: images,
         });
-
         formik.resetForm();
         setImages([]);
       }
@@ -67,8 +68,6 @@ const useMessageInput = (props: ReceivedProps) => {
 
     formik.setFieldValue("value", message);
   };
-
-  const inputFileRef: MutableRefObject<any> = useRef(null);
 
   const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;

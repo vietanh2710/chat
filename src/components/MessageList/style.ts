@@ -95,6 +95,7 @@ export const MessageListContainer = styled(Col).attrs(
         font-weight: 500;
         border-radius: 50%;
         color: #fff;
+        font-size: 16px;
       }
 
       &.user {

@@ -33,6 +33,11 @@ export const ModalWrapper = styled(Modal)`
     align-items: center;
     margin-top: 20px;
 
+    > span {
+      color: #ff1e1e;
+      margin-right: 5px;
+    }
+
     &:nth-child(1) {
       margin-top: 0;
     }

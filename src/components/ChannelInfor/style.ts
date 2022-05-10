@@ -49,11 +49,24 @@ export const ChannelInforContainer = styled(Col)`
           margin-top: 4px;
         }
 
+        .img-text {
+          text-transform: uppercase;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 500;
+          font-size: 16px;
+          color: #fff;
+          margin-right: 10px;
+        }
+
         .user {
           &-name {
             font-size: 15px;
             font-weight: 500;
-            padding-right: 5px;
           }
 
           .position {
