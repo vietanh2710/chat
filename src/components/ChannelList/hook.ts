@@ -25,11 +25,16 @@ const useChannelList = (props: ReceivedProps) => {
       (o) => uid.includes(o.uid) && o.uid !== props.auth.uid
     );
 
+    const channelName = props.users
+      .map((i) => uid.includes(i.uid) && (i.userName || i.email))
+      .filter((i) => i);
+
     return {
       imgText: getUser?.userName.split("")[0] || getUser?.email.split("")[0],
       backgroundColor: getUser?.backgroundColor,
       avt: getUser?.avt,
       userName: getUser?.userName || getUser?.email,
+      channelName: channelName.join(", "),
     };
   };
 

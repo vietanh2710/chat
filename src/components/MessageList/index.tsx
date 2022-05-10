@@ -14,12 +14,14 @@ const MessageListLayout: FC<Props> = ({
   data,
   auth,
   channelId,
-  channelName,
+  getProfile,
   getUser,
   setHeightWrapper,
   setShowTabInfor,
   setCurrentMessage,
 }) => {
+  const { imgText, backgroundColor, avt, channelName, members } = getProfile();
+
   return (
     <>
       <MessageListContainer
@@ -27,11 +29,21 @@ const MessageListLayout: FC<Props> = ({
         heightWrapper={heightWrapper}
       >
         <div className="header">
-          <img
-            src="https://img.icons8.com/office/344/conference-call.png"
-            alt=""
-            className="header-channel-img"
-          />
+          {avt && members.length === 2 ? (
+            <img src={avt} alt="" className="header-channel-img" />
+          ) : (
+            <div>
+              <div
+                className="header-img-text"
+                style={{
+                  backgroundColor:
+                    members.length === 2 ? backgroundColor : "#bee4dd",
+                }}
+              >
+                {members.length === 1 ? imgText : "G"}
+              </div>
+            </div>
+          )}
           <div className="text">{channelName}</div>
           <img
             src={INFO_ICON}

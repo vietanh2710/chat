@@ -39,11 +39,8 @@ const ChannelListView: FC<Props> = ({
 
       <div className="channel-list">
         {data.map((i, index) => {
-          const { imgText, backgroundColor, avt, userName } = getProfile(
-            i.members
-          );
-
-          console.log("avt :>> ", avt);
+          const { imgText, backgroundColor, avt, userName, channelName } =
+            getProfile(i.members);
 
           return (
             <div
@@ -71,7 +68,9 @@ const ChannelListView: FC<Props> = ({
                 <div className="preview">
                   <div>
                     <div className="channel-name">
-                      {i.members.length > 2 ? i.channelName : userName}
+                      {i.members.length > 2
+                        ? i.channelName || channelName
+                        : userName}
                     </div>
                     <div className="active"></div>
                   </div>
@@ -82,9 +81,7 @@ const ChannelListView: FC<Props> = ({
               </div>
 
               <div className="last-time">
-                {moment
-                  .unix(lastMessage(i.id)?.createdAt || i.createdAt)
-                  .format(DATE_TIME_FORMAT.TIME)}
+                {moment.unix(i.createdAt).format(DATE_TIME_FORMAT.TIME)}
               </div>
             </div>
           );

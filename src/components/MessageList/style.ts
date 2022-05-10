@@ -13,9 +13,22 @@ export const MessageListContainer = styled(Col).attrs(
     box-shadow: 0 7px 9px rgb(0 0 0 / 3%), 0 1px 0 rgb(0 0 0 / 3%);
 
     .header-channel-img {
-      width: 45px;
-      height: 45px;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
+    }
+
+    .header-img-text {
+      text-transform: uppercase;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      font-size: 20px;
+      color: #fff;
     }
 
     .text {
@@ -24,7 +37,11 @@ export const MessageListContainer = styled(Col).attrs(
       font-size: 15px;
       line-height: 20px;
       color: #000;
-      padding-left: 10px;
+      margin-left: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 600px;
     }
 
     .icon-info {

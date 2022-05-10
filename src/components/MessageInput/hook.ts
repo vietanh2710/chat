@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import { isEmpty, isNil } from "lodash";
 import { IEmojiData } from "emoji-picker-react";
 import { ImageListType } from "react-images-uploading";
+import moment from "moment";
 
 import userFireStore from "hooks/useFireStore";
 import { addRecord } from "services/service";
@@ -42,7 +43,7 @@ const useMessageInput = (props: ReceivedProps) => {
           content: params.value,
           uid: user.uid,
           channelId: props.channelId,
-          createdAt: Date.now(),
+          createdAt: moment().unix(),
           images: images,
         });
         formik.resetForm();

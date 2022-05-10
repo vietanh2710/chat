@@ -3,6 +3,7 @@ import { get, isEmpty } from "lodash";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "react-google-login";
 import * as Yup from "yup";
+import moment from "moment";
 
 import { ROUTES, STATUS } from "common/constant";
 import { signin, setAuthLocalStorage, signup } from "common/auth";
@@ -66,7 +67,7 @@ const useLogin = () => {
             providerId: res?.additionalUserInfo?.providerId,
             backgroundColor:
               "#" + (((1 << 24) * Math.random()) | 0).toString(16),
-            createdAt: Date.now(),
+            createdAt: moment().unix(),
           });
         }
       });

@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { isEmpty, uniq, includes } from "lodash";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import moment from "moment";
 
 import userFireStore from "hooks/useFireStore";
 import { addRecord } from "services/service";
@@ -34,7 +35,7 @@ const useCreateChannel = (props: ReceivedProps) => {
       description: response.description,
       members: [...response.members, user?.uid],
       owner: user?.uid,
-      createdAt: Date.now(),
+      createdAt: moment().unix(),
     });
     formik.resetForm();
     props.setCreateChannel(false);
@@ -46,7 +47,7 @@ const useCreateChannel = (props: ReceivedProps) => {
       channelName: "",
       members: [],
       description: "",
-      createdAt: Date.now(),
+      createdAt: moment().unix(),
     },
     validationSchema: Yup.object().shape({
       members: Yup.array().min(1, "Field is requied"),

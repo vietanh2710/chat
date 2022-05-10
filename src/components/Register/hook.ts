@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import moment from "moment";
 
 import { ROUTES } from "common/constant";
 import { signup } from "common/auth";
@@ -32,7 +33,7 @@ const useRegister = () => {
             providerId: res?.additionalUserInfo?.providerId,
             backgroundColor:
               "#" + (((1 << 24) * Math.random()) | 0).toString(16),
-            createdAt: Date.now(),
+            createdAt: moment().unix(),
           });
         }
       });

@@ -24,13 +24,13 @@ const useChannelInfor = (props: ReceivedProps) => {
   }, [props.channelId, props.channelId]);
 
   const channelInfor = () => {
-    const result = props.channels.find((i) => i.id === props.channelId);
+    const getChannel = props.channels.find((i) => i.id === props.channelId);
     const getMembers = props.users.filter((i) =>
-      result?.members.includes(i.uid)
+      getChannel?.members.includes(i.uid)
     );
 
     return {
-      owner: result?.owner,
+      owner: getChannel?.owner,
       members: getMembers,
     };
   };

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { orderBy } from "lodash";
 
 import { auth, db } from "services/firesbase";
 import { Channels, Messages, UserUid, Users } from "types";
@@ -46,7 +45,7 @@ const userFireStore = () => {
         };
       });
 
-      setChannels(orderBy(data, ["createdAt", "desc"]));
+      setChannels(data.sort((d1, d2) => d2.createdAt - d1.createdAt));
     });
 
     db.collection("messages").onSnapshot((snapshot) => {
@@ -61,7 +60,7 @@ const userFireStore = () => {
         };
       });
 
-      setMessages(orderBy(data, ["createdAt", "asc"]));
+      setMessages(data.sort((d1, d2) => d1.createdAt - d2.createdAt));
     });
   }, []);
 

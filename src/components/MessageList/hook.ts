@@ -39,24 +39,35 @@ const useChannelMessage = (props: ReceivedProps) => {
     (item) => item.channelId === props.channelId
   );
 
-  const channelName = useMemo(() => {
+  const getProfile = () => {
     const getChannel = props.channels.find((i) => i.id === props.channelId);
     const getUserId = getChannel?.members.find((i) => i !== props.auth.uid);
     const getUser = props.users.find((i) => i.uid === getUserId);
 
-    if (!getChannel || !getUser) return "";
+    const usersName = props.users
+      .map(
+        (i) => getChannel?.members.includes(i.uid) && (i.userName || i.email)
+      )
+      .filter((i) => i);
 
-    return getChannel?.members.length > 2
-      ? getChannel?.channelName
-      : getUser?.userName || getUser?.email;
-  }, [props.channelId, props.channelId]);
+    return {
+      imgText: getUser?.userName.split("")[0] || getUser?.email.split("")[0],
+      backgroundColor: getUser?.backgroundColor,
+      avt: getUser?.avt,
+      channelName:
+        getChannel && getChannel?.members.length > 2
+          ? getChannel?.channelName || usersName.join(", ")
+          : getUser?.userName || getUser?.email,
+      members: getChannel?.members || [],
+    };
+  };
 
   return {
     ...props,
     currentMessage,
     heightWrapper,
     data,
-    channelName,
+    getProfile,
     getUser,
     setHeightWrapper,
     setCurrentMessage,
