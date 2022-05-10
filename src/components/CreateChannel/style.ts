@@ -26,6 +26,7 @@ export const CreateChannelContainer = styled(Col)`
       display: flex;
       align-items: center;
       flex-wrap: wrap;
+      width: 100%;
 
       .item {
         font-size: 15px;

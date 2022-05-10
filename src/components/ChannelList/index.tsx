@@ -43,6 +43,8 @@ const ChannelListView: FC<Props> = ({
             i.members
           );
 
+          console.log("avt :>> ", avt);
+
           return (
             <div
               className="item"
@@ -52,16 +54,17 @@ const ChannelListView: FC<Props> = ({
               }}
             >
               <div className="item-wrapper">
-                {avt ? (
+                {avt && i.members.length === 2 ? (
                   <img src={avt} alt="" className="channel-image" />
                 ) : (
                   <div
                     className="img-text"
                     style={{
-                      backgroundColor: backgroundColor,
+                      backgroundColor:
+                        i.members.length === 2 ? backgroundColor : "#bee4dd",
                     }}
                   >
-                    {imgText}
+                    {i.members.length === 2 ? imgText : "G"}
                   </div>
                 )}
 

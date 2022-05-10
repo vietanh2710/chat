@@ -9,8 +9,6 @@ const { Panel } = Collapse;
 const ChannelInforView: FC<Props> = ({
   showTabInfor,
   channelName,
-  users,
-  auth,
   channelInfor,
 }) => {
   const { members, owner } = channelInfor();

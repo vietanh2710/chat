@@ -41,7 +41,7 @@ const CreateChannelLayout: FC<Props> = ({
             <label className="search" onClick={() => setVisible(!visible)}>
               <span>*</span> To:{" "}
             </label>
-            <div className="users-active">
+            <div className="users-active" onClick={() => setVisible(!visible)}>
               {users.length > 0 &&
                 filterUsersActive.map((i, index: number) => (
                   <div className="item" key={index}>
@@ -126,7 +126,8 @@ const CreateChannelLayout: FC<Props> = ({
                               borderRadius: 50,
                               width: 32,
                               height: 32,
-                              fontWeight: 600,
+                              fontWeight: 500,
+                              fontSize: 18,
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -156,7 +157,7 @@ const CreateChannelLayout: FC<Props> = ({
             )}
           </div>
 
-          <div className="btn-wrapper">
+          <div className="btn-wrapper" onClick={() => setVisible(false)}>
             <button
               className="btn-cancel"
               onClick={() => setCreateChannel(false)}
