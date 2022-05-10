@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const RegisterContainer = styled.div`
+  margin: 100px auto;
   padding: 30px;
   background-color: #fff;
   width: 100%;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 5px;
-  margin: 0 auto;
 
   .header {
     .register-wrapper {

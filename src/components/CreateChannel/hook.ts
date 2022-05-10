@@ -6,6 +6,7 @@ import moment from "moment";
 
 import userFireStore from "hooks/useFireStore";
 import { addRecord } from "services/service";
+import { COLLECTION } from "common/constant";
 
 export type ReceivedProps = {
   createChannel: boolean;
@@ -30,7 +31,7 @@ const useCreateChannel = (props: ReceivedProps) => {
   const onSubmit = (response: InitialValues) => {
     if (isEmpty(response.members)) return;
 
-    addRecord("channels", {
+    addRecord(COLLECTION.CHANNELS, {
       channelName: response.channelName,
       description: response.description,
       members: [...response.members, user?.uid],
@@ -68,6 +69,12 @@ const useCreateChannel = (props: ReceivedProps) => {
     );
   };
 
+  const onCancel = () => {
+    props.setCreateChannel(false);
+    setUsers([]);
+    formik.resetForm();
+  };
+
   const filterUsersActive = convertUsers.filter((i) =>
     includes(allUser, i.uid)
   );
@@ -83,6 +90,7 @@ const useCreateChannel = (props: ReceivedProps) => {
     visible,
     filterListUsers,
     filterUsersActive,
+    onCancel,
     setVisible,
     removeUser,
     addUser,

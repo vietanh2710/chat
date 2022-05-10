@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import { get, isEmpty } from "lodash";
 import { useNavigate } from "react-router-dom";
@@ -5,7 +6,7 @@ import { useGoogleLogin } from "react-google-login";
 import * as Yup from "yup";
 import moment from "moment";
 
-import { ROUTES, STATUS } from "common/constant";
+import { COLLECTION, ERROR, ROUTES, STATUS } from "common/constant";
 import { signin, setAuthLocalStorage, signup } from "common/auth";
 import { addRecord } from "services/service";
 
@@ -17,6 +18,8 @@ type InitialValues = {
 
 const useLogin = () => {
   const navigate = useNavigate();
+  const [err, setErr] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit = async (response: InitialValues) => {
     if (!isEmpty(response.email)) {
@@ -27,8 +30,22 @@ const useLogin = () => {
           navigate(ROUTES.CHAT);
           formik.resetForm();
         });
+        setErr("");
       } catch (error) {
         console.log("error :>> ", { error });
+        const getErr = get(error, "code");
+
+        if (getErr === ERROR.NOT_FOUND) {
+          setErr("User not found");
+        }
+
+        if (getErr === ERROR.EMAIL_USE) {
+          setErr("Email already in use");
+        }
+
+        if (getErr === ERROR.WRONG_PASSWORD) {
+          setErr("Wrong password");
+        }
       }
     }
   };
@@ -52,13 +69,14 @@ const useLogin = () => {
     }
 
     try {
+      setLoading(true);
       await signup(response.profileObj.email, response.googleId).then((res) => {
         if (
           res.additionalUserInfo?.isNewUser &&
           res.user?.uid &&
           res.user?.email
         ) {
-          addRecord("users", {
+          addRecord(COLLECTION.USERS, {
             uid: res.user.uid,
             email: res.user.email,
             avt: response.profileObj.imageUrl,
@@ -76,7 +94,9 @@ const useLogin = () => {
       navigate(ROUTES.CHAT);
     } catch (error) {
       const getErr = get(error, "code");
-      if (getErr === "auth/email-already-in-use") {
+
+      if (getErr === ERROR.EMAIL_USE) {
+        setLoading(true);
         await signin(response.profileObj.email, response.googleId).then(
           (res) => {
             setAuthLocalStorage();
@@ -84,11 +104,12 @@ const useLogin = () => {
           }
         );
       }
-      console.log("error :>> ", { error });
+
+      setLoading(false);
     }
   };
 
-  const { signIn, loaded } = useGoogleLogin({
+  const { signIn } = useGoogleLogin({
     clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID || "",
     onSuccess: responseGoogle,
     onFailure: responseGoogle,
@@ -100,7 +121,8 @@ const useLogin = () => {
 
   return {
     formik,
-    loaded,
+    loading,
+    err,
     signIn,
     responseGoogle,
   };

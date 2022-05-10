@@ -12,11 +12,12 @@ const ChannelListView: FC<Props> = ({
   getProfile,
   setCreateChannel,
   lastMessage,
+  heightWrapper,
   createChannel,
   data,
 }) => {
   return (
-    <ChannelListContainer span={6}>
+    <ChannelListContainer span={6} heightWrapper={heightWrapper}>
       <div className="header">
         <p className="text">Chat</p>
         <div className="icon-edit-wrapper">
@@ -37,7 +38,7 @@ const ChannelListView: FC<Props> = ({
         </div>
       </div>
 
-      <div className="channel-list">
+      <div className="channel-list" id="channel-list">
         {data.map((i, index) => {
           const { imgText, backgroundColor, avt, userName, channelName } =
             getProfile(i.members);
@@ -66,7 +67,7 @@ const ChannelListView: FC<Props> = ({
                 )}
 
                 <div className="preview">
-                  <div>
+                  <div className="preview-wrapper">
                     <div className="channel-name">
                       {i.members.length > 2
                         ? i.channelName || channelName

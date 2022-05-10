@@ -5,7 +5,8 @@ import * as Yup from "yup";
 import { isEmpty, omit } from "lodash";
 
 import { Auth, Users } from "types";
-import { getProfile } from "common/auth";
+import { updateRecord } from "services/service";
+import { COLLECTION } from "common/constant";
 
 export type ReceivedProps = {
   setIsModalVisible: Dispatch<SetStateAction<boolean>>;
@@ -28,7 +29,14 @@ const useProfile = (props: ReceivedProps) => {
   const onChangeImg = (imageList: ImageListType) => setImages(imageList);
 
   const onSubmit = (response: InitialValues) => {
-    if (!isEmpty(formik.errors) || isEmpty(formik.values.email)) return;
+    if (!isEmpty(response.email) || !editProfile) return;
+
+    try {
+      updateRecord(COLLECTION.USERS, props.auth.id, omit(response, "password"));
+      formik.resetForm();
+    } catch (error) {
+      console.log("error :>> ", { error });
+    }
   };
 
   const formik = useFormik({

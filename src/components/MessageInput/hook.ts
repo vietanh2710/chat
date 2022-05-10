@@ -16,6 +16,7 @@ import moment from "moment";
 
 import userFireStore from "hooks/useFireStore";
 import { addRecord } from "services/service";
+import { COLLECTION } from "common/constant";
 
 type InitialValues = {
   value: string;
@@ -39,7 +40,7 @@ const useMessageInput = (props: ReceivedProps) => {
   const onSubmit = async (params: InitialValues) => {
     try {
       if (user?.uid && props.channelId) {
-        addRecord("messages", {
+        addRecord(COLLECTION.MESSAGES, {
           content: params.value,
           uid: user.uid,
           channelId: props.channelId,

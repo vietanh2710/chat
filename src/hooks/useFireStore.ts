@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { auth, db } from "services/firesbase";
 import { Channels, Messages, UserUid, Users } from "types";
+import { COLLECTION } from "common/constant";
 
 const userFireStore = () => {
   const [user, setUser] = useState<UserUid>();
@@ -13,7 +14,7 @@ const userFireStore = () => {
   const getLocalStorage = localStorage.getItem("user");
 
   useEffect(() => {
-    db.collection("users").onSnapshot((snapshot) => {
+    db.collection(COLLECTION.USERS).onSnapshot((snapshot) => {
       const data = snapshot.docs.map((doc) => {
         const field = doc.data();
         return {
@@ -32,7 +33,7 @@ const userFireStore = () => {
       setUsers(data);
     });
 
-    db.collection("channels").onSnapshot((snapshot) => {
+    db.collection(COLLECTION.CHANNELS).onSnapshot((snapshot) => {
       const data = snapshot.docs.map((doc) => {
         const field = doc.data();
         return {
@@ -48,7 +49,7 @@ const userFireStore = () => {
       setChannels(data.sort((d1, d2) => d2.createdAt - d1.createdAt));
     });
 
-    db.collection("messages").onSnapshot((snapshot) => {
+    db.collection(COLLECTION.MESSAGES).onSnapshot((snapshot) => {
       const data = snapshot.docs.map((doc) => {
         const field = doc.data();
         return {

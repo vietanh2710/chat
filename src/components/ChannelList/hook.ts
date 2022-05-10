@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { last } from "lodash";
 
 import { Auth, Channels, Messages, Users } from "types";
@@ -14,6 +14,7 @@ export type ReceivedProps = {
 
 const useChannelList = (props: ReceivedProps) => {
   const [createChannel, setCreateChannel] = useState<boolean>(false);
+  const [heightWrapper, setHeightWrapper] = useState<number>();
 
   const data = props.channels.filter((i) => i.members.includes(props.auth.uid));
 
@@ -38,10 +39,17 @@ const useChannelList = (props: ReceivedProps) => {
     };
   };
 
+  useEffect(() => {
+    const result = document.getElementById("chat-wrapper");
+
+    setHeightWrapper(result?.clientHeight);
+  }, [props.channels, props.channelId]);
+
   return {
     ...props,
     data,
     createChannel,
+    heightWrapper,
     lastMessage,
     setCreateChannel,
     getProfile,

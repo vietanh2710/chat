@@ -12,15 +12,16 @@ const ChannelInforView: FC<Props> = ({
   channelInfor,
 }) => {
   const { members, owner } = channelInfor();
+
   return (
     <>
       {showTabInfor && (
         <ChannelInforContainer span={5}>
-          <img
+          {/* <img
             src="https://img.icons8.com/office/344/conference-call.png"
             alt=""
             className="infor-img"
-          />
+          /> */}
           <div className="name">{channelName}</div>
 
           <Collapse

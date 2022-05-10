@@ -15,3 +15,15 @@ export const ROUTES = {
 export const STATUS = {
   CLOSE_POPUP_GOOGLE: "popup_closed_by_user",
 };
+
+export const COLLECTION = {
+  USERS: "users",
+  CHANNELS: "channels",
+  MESSAGES: "messages",
+};
+
+export const ERROR = {
+  NOT_FOUND: "auth/user-not-found",
+  WRONG_PASSWORD: "auth/wrong-password",
+  EMAIL_USE: "auth/email-already-in-use",
+};

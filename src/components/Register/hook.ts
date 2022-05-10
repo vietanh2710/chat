@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import moment from "moment";
 
-import { ROUTES } from "common/constant";
+import { COLLECTION, ROUTES } from "common/constant";
 import { signup } from "common/auth";
 import { addRecord } from "services/service";
 
@@ -24,7 +24,7 @@ const useRegister = () => {
           res.user?.uid &&
           res.user?.email
         ) {
-          addRecord("users", {
+          addRecord(COLLECTION.USERS, {
             uid: res.user.uid,
             email: res.user.email,
             avt: "",

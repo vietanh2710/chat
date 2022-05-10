@@ -14,6 +14,7 @@ const CreateChannelLayout: FC<Props> = ({
   visible,
   filterUsersActive,
   filterListUsers,
+  onCancel,
   addUser,
   removeUser,
   setVisible,
@@ -158,12 +159,9 @@ const CreateChannelLayout: FC<Props> = ({
           </div>
 
           <div className="btn-wrapper" onClick={() => setVisible(false)}>
-            <button
-              className="btn-cancel"
-              onClick={() => setCreateChannel(false)}
-            >
+            <div className="btn-cancel" onClick={onCancel}>
               Cancel
-            </button>
+            </div>
 
             <button
               type="submit"

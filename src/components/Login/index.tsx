@@ -1,12 +1,16 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { isEmpty } from "lodash";
 
 import { ROUTES } from "common/constant";
 import useLogin, { Props } from "./hook";
 import { LoginContainer } from "./style";
 import { FACEBOOK_ICON, GOOGLE_ICON } from "assets";
+import { Loading } from "components";
 
-const LoginView: FC<Props> = ({ formik, signIn }) => {
+const LoginView: FC<Props> = ({ formik, err, loading, signIn }) => {
+  if (loading) return <Loading />;
+
   return (
     <LoginContainer>
       <div className="header">
@@ -46,14 +50,25 @@ const LoginView: FC<Props> = ({ formik, signIn }) => {
             )}
           </div>
 
-          <div className="checkbox">
+          {!isEmpty(err) && (
+            <p
+              className="error-text"
+              style={{
+                paddingTop: 10,
+              }}
+            >
+              {err}
+            </p>
+          )}
+
+          {/* <div className="checkbox">
             <input
               type="checkbox"
               id="remember"
               {...formik.getFieldProps("remember")}
             />
             <label>Remeber me</label>
-          </div>
+          </div> */}
 
           <button type="submit" className="btn-submit">
             Login

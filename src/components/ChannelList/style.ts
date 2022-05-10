@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { Col } from "antd";
 
-export const ChannelListContainer = styled(Col)`
+export const ChannelListContainer = styled(Col).attrs(
+  (props: { heightWrapper: number }) => props
+)`
   background-color: #fafafa;
 
   .header {
@@ -68,7 +70,10 @@ export const ChannelListContainer = styled(Col)`
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     overflow-x: hidden;
     overflow-y: auto;
-    height: 500px;
+    height: ${(props: { heightWrapper: number }) =>
+      props.heightWrapper
+        ? `calc(100vh - ${50 + props.heightWrapper}px)`
+        : "100vh"};
 
     .item {
       display: flex;
@@ -113,7 +118,7 @@ export const ChannelListContainer = styled(Col)`
         align-items: flex-start;
         flex-direction: column;
 
-        > div {
+        &-wrapper {
           display: flex;
           align-items: center;
           flex-direction: row-reverse;
@@ -142,14 +147,10 @@ export const ChannelListContainer = styled(Col)`
 
         .last-message {
           font-size: 13px;
-          margin: 0;
           color: #858688;
-          max-width: 150px;
+          max-width: 200px;
           overflow: hidden;
-          text-overflow: ellipsis;
           white-space: nowrap;
-          white-space: nowrap;
-          overflow: hidden;
           text-overflow: ellipsis;
           margin-left: 10px;
         }

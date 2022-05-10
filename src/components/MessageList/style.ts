@@ -10,6 +10,7 @@ export const MessageListContainer = styled(Col).attrs(
     display: flex;
     align-items: center;
     padding: 20px;
+    height: 75px;
     box-shadow: 0 7px 9px rgb(0 0 0 / 3%), 0 1px 0 rgb(0 0 0 / 3%);
 
     .header-channel-img {
@@ -41,7 +42,7 @@ export const MessageListContainer = styled(Col).attrs(
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 600px;
+      /* max-width: 600px; */
     }
 
     .icon-info {

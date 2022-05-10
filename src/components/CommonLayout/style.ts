@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const CommonLayoutContainer = styled.div`
-  padding: 100px 0;
   margin: 0 auto;
   max-width: 550px;
 

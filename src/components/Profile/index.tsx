@@ -79,21 +79,21 @@ const ProfileView: FC<Props> = ({
               <input type="text" {...formik.getFieldProps("fullName")} />
             )}
 
-            <label>Password: {!editProfile && <div>*******</div>}</label>
+            {/* <label>Password: {!editProfile && <div>*******</div>}</label>
             {editProfile && (
               <input type="password" {...formik.getFieldProps("password")} />
-            )}
+            )} */}
           </div>
 
           <div className="btn-wrapper">
-            <button onClick={onCancel} className="btn-cancel">
+            <div onClick={onCancel} className="btn-cancel">
               {editProfile ? "Back" : "Cancel"}
-            </button>
+            </div>
 
             {!editProfile ? (
-              <button onClick={onOk} className="btn-submit">
+              <div onClick={onOk} className="btn-submit">
                 Edit Profile
-              </button>
+              </div>
             ) : (
               <button
                 type="submit"

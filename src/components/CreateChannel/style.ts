@@ -20,6 +20,7 @@ export const CreateChannelContainer = styled(Col)`
       display: flex;
       align-items: center;
       margin-top: 20px;
+      cursor: pointer;
     }
 
     .users-active {
@@ -27,6 +28,7 @@ export const CreateChannelContainer = styled(Col)`
       align-items: center;
       flex-wrap: wrap;
       width: 100%;
+      cursor: pointer;
 
       .item {
         font-size: 15px;
