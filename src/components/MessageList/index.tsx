@@ -3,7 +3,7 @@ import moment from "moment";
 import { isEmpty } from "lodash";
 import { Col } from "antd";
 
-import { INFO_ICON } from "assets";
+import { ATTACH_ICON, INFO_ICON } from "assets";
 import { DATE_TIME_FORMAT } from "common/constant";
 import { MessageInput } from "components";
 import useChannelMessage, { Props, ReceivedProps } from "./hook";
@@ -16,6 +16,7 @@ const MessageListLayout: FC<Props> = ({
   data,
   auth,
   channelId,
+  downloadFile,
   getProfile,
   getUser,
   setHeightWrapper,
@@ -118,6 +119,17 @@ const MessageListLayout: FC<Props> = ({
                           {i.images.map((i, index: number) => (
                             <img src={i} key={index} />
                           ))}
+                        </div>
+                      )}
+
+                      {i.file && (
+                        <div
+                          id="download"
+                          className="message-file"
+                          onClick={() => downloadFile(i.file)}
+                        >
+                          <img src={ATTACH_ICON} />
+                          <div className="message">{i.file.name}</div>
                         </div>
                       )}
                     </div>

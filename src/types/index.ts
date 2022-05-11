@@ -13,6 +13,7 @@ export interface Messages {
   channelId: string;
   content: string;
   images: string[];
+  file: File;
   createdAt: number;
 }
 
@@ -42,4 +43,12 @@ export interface Auth {
   backgroundColor: string;
   providerId: string;
   createdAt: number;
+}
+
+export interface File {
+  name: string;
+  path: string;
+  size: number;
+  type: string;
+  lastModified: number;
 }

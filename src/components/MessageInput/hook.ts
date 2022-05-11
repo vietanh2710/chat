@@ -21,6 +21,7 @@ import { COLLECTION } from "common/constant";
 type InitialValues = {
   value: string;
   images: string[];
+  file: File | null;
 };
 
 export type ReceivedProps = {
@@ -45,7 +46,12 @@ const useMessageInput = (props: ReceivedProps) => {
   };
 
   const onSubmit = async (response: InitialValues) => {
-    if (isEmpty(response.images) && isEmpty(response.value)) return;
+    if (
+      isEmpty(response.images) &&
+      isEmpty(response.value) &&
+      isEmpty(response.file)
+    )
+      return;
 
     try {
       if (user?.uid && props.channelId) {
@@ -55,6 +61,7 @@ const useMessageInput = (props: ReceivedProps) => {
           channelId: props.channelId,
           createdAt: moment().unix(),
           images: response.images,
+          file: response.file,
         });
         formik.resetForm();
         setImages([]);
@@ -68,6 +75,7 @@ const useMessageInput = (props: ReceivedProps) => {
     initialValues: {
       value: "",
       images: [],
+      file: null,
     },
     onSubmit: (values) => onSubmit(values),
   });
@@ -81,16 +89,25 @@ const useMessageInput = (props: ReceivedProps) => {
     formik.setFieldValue("value", message);
   };
 
-  const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
 
     if (!fileList) return;
 
-    Array.from(fileList).forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => console.log(reader);
-      reader.readAsDataURL(file);
-    });
+    const getFile = fileList[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      formik.setFieldValue("file", {
+        name: getFile.name,
+        size: getFile.size,
+        type: getFile.type,
+        lastModified: getFile.lastModified,
+        webkitRelativePath: getFile.webkitRelativePath,
+        path: reader.result,
+      });
+    };
+    reader.readAsDataURL(getFile);
   };
 
   const onUploadFile = () => {

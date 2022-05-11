@@ -20,18 +20,18 @@ const ChannelListView: FC<Props> = ({
     <ChannelListContainer span={6} heightWrapper={heightWrapper}>
       <div className="header">
         <p className="text">Chat</p>
-        <div className="icon-edit-wrapper">
-          <img
-            src={EDIT_ICON}
-            alt=""
-            className="icon-edit"
-            onClick={() => setCreateChannel(true)}
-          />
-          <CreateChannel
-            createChannel={createChannel}
-            setCreateChannel={setCreateChannel}
-          />
+
+        <div
+          className="icon-edit-wrapper"
+          onClick={() => setCreateChannel(true)}
+        >
+          <img src={EDIT_ICON} alt="" className="icon-edit" />
         </div>
+
+        <CreateChannel
+          createChannel={createChannel}
+          setCreateChannel={setCreateChannel}
+        />
         <div className="search-wrapper">
           <img src={SEARCH_ICON} alt="" className="icon-search" />
           <input type="text" placeholder="Search" className="search" />

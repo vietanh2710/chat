@@ -91,9 +91,9 @@ const ProfileView: FC<Props> = ({
             </div>
 
             {!editProfile ? (
-              <div onClick={onOk} className="btn-submit">
+              <button type="button" onClick={onOk} className="btn-submit">
                 Edit Profile
-              </div>
+              </button>
             ) : (
               <button
                 type="submit"

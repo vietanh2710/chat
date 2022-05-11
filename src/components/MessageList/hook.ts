@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useMemo, useState } from "react";
 
-import { Auth, Channels, Messages, Users } from "types";
+import { Auth, Channels, Messages, Users, File } from "types";
 
 export type ReceivedProps = {
   showTabInfor: boolean;
@@ -62,11 +62,26 @@ const useChannelMessage = (props: ReceivedProps) => {
     };
   };
 
+  function downloadURI(uri: any, name: any) {
+    const link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    link.click();
+  }
+
+  const downloadFile = (data: any) => {
+    const blob = new Blob([data], { type: data.type });
+    const url = window.URL.createObjectURL(blob);
+    downloadURI(url, data.name);
+    window.URL.revokeObjectURL(url);
+  };
+
   return {
     ...props,
     currentMessage,
     heightWrapper,
     data,
+    downloadFile,
     getProfile,
     getUser,
     setHeightWrapper,

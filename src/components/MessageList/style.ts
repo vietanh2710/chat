@@ -159,6 +159,19 @@ export const MessageListContainer = styled(Col).attrs(
           }
         }
 
+        .message-file {
+          display: flex;
+          align-items: center;
+
+          img {
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            transform: rotate(90deg);
+            margin-right: 5px;
+          }
+        }
+
         .message {
           display: flex;
           flex-direction: column;

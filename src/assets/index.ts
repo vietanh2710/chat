@@ -14,3 +14,4 @@ export { default as FOLDER_ICON } from "../assets/icons/folder.svg";
 export { default as LIKE_ICON } from "../assets/icons/like.svg";
 export { default as PERSON_ICON } from "../assets/icons/person.svg";
 export { default as SETTINGS_ICON } from "../assets/icons/settings.svg";
+export { default as ATTACH_ICON } from "../assets/icons/attach.svg";

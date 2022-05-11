@@ -52,6 +52,25 @@ export const MessageInputContainer = styled.div.attrs(
       flex-direction: column;
       width: 100%;
 
+      .file-upload {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        p {
+          font-weight: 500;
+        }
+
+        img {
+          margin-top: 3px;
+          width: 18px;
+          height: 18px;
+          transform: rotate(90deg);
+          margin-right: 5px;
+        }
+      }
+
       .img-upload {
         display: flex;
         align-items: center;

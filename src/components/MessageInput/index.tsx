@@ -5,6 +5,7 @@ import { isEmpty } from "lodash";
 
 import useMessageInput, { Props, ReceivedProps } from "./hook";
 import {
+  ATTACH_ICON,
   FOLDER_ICON,
   IMAGE_ICON,
   LIKE_ICON,
@@ -59,6 +60,13 @@ const MessageInputLayout: FC<Props> = ({
                     </div>
                   )}
 
+                  {formik.getFieldProps("file").value?.name && (
+                    <div className="file-upload">
+                      <img src={ATTACH_ICON} alt="" />
+                      <p>{formik.getFieldProps("file").value.name}</p>
+                    </div>
+                  )}
+
                   <div className="chat-input">
                     <img
                       src={SMILE_ICON}
@@ -78,6 +86,7 @@ const MessageInputLayout: FC<Props> = ({
                     />
 
                     <input
+                      id="upload"
                       type="file"
                       accept="video/*, .pdf, .json, .zip"
                       ref={inputFileRef}
@@ -127,7 +136,8 @@ const MessageInputLayout: FC<Props> = ({
                       style={{
                         cursor:
                           isEmpty(formik.getFieldProps("value").value) &&
-                          isEmpty(formik.getFieldProps("images").value)
+                          isEmpty(formik.getFieldProps("images").value) &&
+                          isEmpty(formik.getFieldProps("file").value)
                             ? "not-allowed"
                             : "pointer",
                       }}

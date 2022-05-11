@@ -159,9 +159,9 @@ const CreateChannelLayout: FC<Props> = ({
           </div>
 
           <div className="btn-wrapper" onClick={() => setVisible(false)}>
-            <div className="btn-cancel" onClick={onCancel}>
+            <button type="button" className="btn-cancel" onClick={onCancel}>
               Cancel
-            </div>
+            </button>
 
             <button
               type="submit"
