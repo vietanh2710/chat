@@ -102,20 +102,6 @@ export const MessageListContainer = styled(Col).attrs(
       align-items: flex-start;
       cursor: pointer;
 
-      .img-text {
-        text-transform: uppercase;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 500;
-        border-radius: 50%;
-        color: #fff;
-        font-size: 16px;
-      }
-
       &.user {
         align-items: flex-end;
 
@@ -125,8 +111,12 @@ export const MessageListContainer = styled(Col).attrs(
         }
 
         .message {
-          margin-right: 0;
-          margin-left: 50px;
+          align-items: flex-end;
+
+          &-wrapper {
+            margin-right: 0;
+            margin-left: 50px;
+          }
         }
       }
 
@@ -134,21 +124,57 @@ export const MessageListContainer = styled(Col).attrs(
         display: flex;
         align-items: flex-start;
 
+        .img-text {
+          text-transform: uppercase;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 500;
+          border-radius: 50%;
+          color: #fff;
+          font-size: 16px;
+        }
+
         .user-avt {
           width: 30px;
           height: 30px;
           border-radius: 50%;
         }
 
+        .message-img {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          gap: 10px;
+
+          img {
+            width: 100px;
+            height: 100px;
+            display: block;
+            object-fit: cover;
+            margin-left: 10px;
+          }
+        }
+
         .message {
-          border-radius: 8px;
-          border: 1px solid rgba(0, 0, 0, 0.08);
-          padding: 5px 10px;
-          display: block;
-          margin-left: 10px;
-          font-size: 15px;
-          margin-right: 50px;
-          cursor: auto;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+
+          &-wrapper {
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 5px 10px;
+            display: block;
+            font-size: 15px;
+            margin-left: 10px;
+            margin-right: 50px;
+            cursor: auto;
+          }
         }
       }
 

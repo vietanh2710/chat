@@ -93,20 +93,33 @@ const MessageListLayout: FC<Props> = ({
                         {imgText}
                       </div>
                     )}
-                    <div
-                      className="message"
-                      onClick={() =>
-                        setCurrentMessage({
-                          open:
-                            index === currentMessage.index &&
-                            currentMessage.open
-                              ? false
-                              : true,
-                          index,
-                        })
-                      }
-                    >
-                      {i.content}
+
+                    <div className="message">
+                      {i.content && (
+                        <div
+                          className="message-wrapper"
+                          onClick={() =>
+                            setCurrentMessage({
+                              open:
+                                index === currentMessage.index &&
+                                currentMessage.open
+                                  ? false
+                                  : true,
+                              index,
+                            })
+                          }
+                        >
+                          {i.content}
+                        </div>
+                      )}
+
+                      {i.images && (
+                        <div className="message-img">
+                          {i.images.map((i, index: number) => (
+                            <img src={i} key={index} />
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                   {currentMessage.open && currentMessage.index === index && (

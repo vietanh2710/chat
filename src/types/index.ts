@@ -12,6 +12,7 @@ export interface Messages {
   uid: string;
   channelId: string;
   content: string;
+  images: string[];
   createdAt: number;
 }
 

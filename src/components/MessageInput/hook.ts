@@ -20,6 +20,7 @@ import { COLLECTION } from "common/constant";
 
 type InitialValues = {
   value: string;
+  images: string[];
 };
 
 export type ReceivedProps = {
@@ -35,10 +36,16 @@ const useMessageInput = (props: ReceivedProps) => {
   const [isEmoji, setEmoji] = useState<boolean>(false);
   const [inputHeight, setInputHeight] = useState<number>();
 
-  const onUploadImg = (imageList: ImageListType) => setImages(imageList);
+  const onUploadImg = (imageList: ImageListType) => {
+    formik.setFieldValue(
+      "images",
+      imageList.map((i) => i.dataURL)
+    );
+    setImages(imageList);
+  };
 
   const onSubmit = async (response: InitialValues) => {
-    if (isEmpty(response.value)) return;
+    if (isEmpty(response.images) && isEmpty(response.value)) return;
 
     try {
       if (user?.uid && props.channelId) {
@@ -47,7 +54,7 @@ const useMessageInput = (props: ReceivedProps) => {
           uid: user.uid,
           channelId: props.channelId,
           createdAt: moment().unix(),
-          images: images,
+          images: response.images,
         });
         formik.resetForm();
         setImages([]);
@@ -60,6 +67,7 @@ const useMessageInput = (props: ReceivedProps) => {
   const formik = useFormik({
     initialValues: {
       value: "",
+      images: [],
     },
     onSubmit: (values) => onSubmit(values),
   });

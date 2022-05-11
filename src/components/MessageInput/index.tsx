@@ -125,9 +125,11 @@ const MessageInputLayout: FC<Props> = ({
                       type="submit"
                       className="btn-submit"
                       style={{
-                        cursor: isEmpty(formik.getFieldProps("value").value)
-                          ? "not-allowed"
-                          : "pointer",
+                        cursor:
+                          isEmpty(formik.getFieldProps("value").value) &&
+                          isEmpty(formik.getFieldProps("images").value)
+                            ? "not-allowed"
+                            : "pointer",
                       }}
                     >
                       <img

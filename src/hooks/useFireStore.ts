@@ -57,6 +57,7 @@ const userFireStore = () => {
           uid: field.uid,
           channelId: field.channelId,
           content: field.content,
+          images: field.images,
           createdAt: field.createdAt,
         };
       });
