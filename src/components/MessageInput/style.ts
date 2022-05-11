@@ -53,13 +53,32 @@ export const MessageInputContainer = styled.div.attrs(
       width: 100%;
 
       .file-upload {
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        padding: 6px 10px 2px;
         margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        width: 100%;
+        width: fit-content;
+        position: relative;
 
-        p {
-          font-weight: 500;
+        .icon-close {
+          width: 22px;
+          height: 22px;
+          position: absolute;
+          right: -16px;
+          top: -10px;
+          background-color: #f2f1f0;
+          border-radius: 50%;
+          padding: 3px;
+          cursor: pointer;
+        }
+
+        &-wrapper {
+          display: inline-flex;
+          align-items: center;
+
+          p {
+            font-weight: 500;
+          }
         }
 
         img {

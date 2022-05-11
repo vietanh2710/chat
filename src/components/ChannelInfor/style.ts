@@ -8,6 +8,8 @@ export const ChannelInforContainer = styled(Col)`
   justify-content: flex-start;
   padding-top: 20px;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  height: 100vh;
 
   .infor-img {
     width: 60px;
@@ -74,6 +76,38 @@ export const ChannelInforContainer = styled(Col)`
             font-size: 13px;
           }
         }
+      }
+    }
+
+    .images-wrapper {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 100%;
+
+      img {
+        display: block;
+        object-fit: cover;
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    .files-wrapper {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      flex-direction: column;
+
+      div {
+        font-weight: normal;
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        padding: 5px 10px;
+        font-size: 15px;
+        margin-bottom: 10px;
+        cursor: auto;
       }
     }
   }

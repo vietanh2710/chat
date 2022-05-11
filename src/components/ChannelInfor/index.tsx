@@ -11,7 +11,7 @@ const ChannelInforView: FC<Props> = ({
   channelName,
   channelInfor,
 }) => {
-  const { members, owner } = channelInfor();
+  const { members, owner, images, files } = channelInfor();
 
   return (
     <>
@@ -32,38 +32,44 @@ const ChannelInforView: FC<Props> = ({
           >
             <Panel header="Chat memebers" key="1" className="pannel-header">
               <div className="members-list">
-                {members.map((i, index) => {
-                  return (
-                    <div className="item" key={index}>
-                      {i.avt ? (
-                        <img src={i.avt} alt="" className="user-avt" />
-                      ) : (
-                        <div
-                          className="img-text"
-                          style={{
-                            backgroundColor: i.backgroundColor,
-                          }}
-                        >
-                          {i.userName.split("")[0] || i.email.split("")[0]}
-                        </div>
-                      )}
-                      <div className="user">
-                        <p className="user-name">{i.userName || i.email}</p>
-                        <p className="position">
-                          {i.uid !== owner && "member"}
-                        </p>
+                {members.map((i, index) => (
+                  <div className="item" key={index}>
+                    {i.avt ? (
+                      <img src={i.avt} alt="" className="user-avt" />
+                    ) : (
+                      <div
+                        className="img-text"
+                        style={{
+                          backgroundColor: i.backgroundColor,
+                        }}
+                      >
+                        {i.userName.split("")[0] || i.email.split("")[0]}
                       </div>
+                    )}
+                    <div className="user">
+                      <p className="user-name">{i.userName || i.email}</p>
+                      <p className="position">{i.uid !== owner && "member"}</p>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </Panel>
-            <Panel header="Photos" key="2" className="pannel-header"></Panel>
-            <Panel
-              header="Files and links"
-              key="3"
-              className="pannel-header"
-            ></Panel>
+
+            <Panel header="Photos" key="2" className="pannel-header">
+              <div className="images-wrapper">
+                {images.map((i, index) => (
+                  <img src={i} alt="" key={index} />
+                ))}
+              </div>
+            </Panel>
+
+            <Panel header="Files and links" key="3" className="pannel-header">
+              <div className="files-wrapper">
+                {files.map((i, index) => (
+                  <div key={index}>{i.file?.name}</div>
+                ))}
+              </div>
+            </Panel>
           </Collapse>
           <br />
         </ChannelInforContainer>

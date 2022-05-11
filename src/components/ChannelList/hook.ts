@@ -18,8 +18,11 @@ const useChannelList = (props: ReceivedProps) => {
 
   const data = props.channels.filter((i) => i.members.includes(props.auth.uid));
 
-  const lastMessage = (id: string) =>
-    last(props.messages.filter((i) => i.channelId === id));
+  const lastMessage = (id: string) => {
+    const result = last(props.messages.filter((i) => i.channelId === id));
+
+    return result?.content || result?.file?.name;
+  };
 
   const getProfile = (uid: string[]) => {
     const getUser = props.users.find(

@@ -21,6 +21,7 @@ const MessageInputLayout: FC<Props> = ({
   isEmoji,
   inputHeight,
   inputFileRef,
+  onFileRemove,
   onUploadFile,
   onChangeFile,
   setEmoji,
@@ -62,8 +63,17 @@ const MessageInputLayout: FC<Props> = ({
 
                   {formik.getFieldProps("file").value?.name && (
                     <div className="file-upload">
-                      <img src={ATTACH_ICON} alt="" />
-                      <p>{formik.getFieldProps("file").value.name}</p>
+                      <div className="file-upload-wrapper">
+                        <img src={ATTACH_ICON} alt="" />
+                        <p>{formik.getFieldProps("file").value.name}</p>
+                      </div>
+
+                      <img
+                        src={XMARK_ICON}
+                        alt=""
+                        className="icon-close"
+                        onClick={onFileRemove}
+                      />
                     </div>
                   )}
 
@@ -88,7 +98,7 @@ const MessageInputLayout: FC<Props> = ({
                     <input
                       id="upload"
                       type="file"
-                      accept="video/*, .pdf, .json, .zip"
+                      accept=".json, .txt"
                       ref={inputFileRef}
                       onChange={onChangeFile}
                       style={{

@@ -75,9 +75,7 @@ const ChannelListView: FC<Props> = ({
                     </div>
                     <div className="active"></div>
                   </div>
-                  <div className="last-message">
-                    {lastMessage(i.id)?.content}
-                  </div>
+                  <div className="last-message">{lastMessage(i.id)}</div>
                 </div>
               </div>
 

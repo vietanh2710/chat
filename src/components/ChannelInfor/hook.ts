@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { flatten, isEmpty } from "lodash";
+import { useCallback, useMemo, useState } from "react";
 import { Auth, Channels, Messages, Users } from "types";
 
 export type ReceivedProps = {
@@ -23,17 +24,25 @@ const useChannelInfor = (props: ReceivedProps) => {
       : getUser?.userName || getUser?.email;
   }, [props.channelId, props.channelId]);
 
-  const channelInfor = () => {
+  const channelInfor = useCallback(() => {
     const getChannel = props.channels.find((i) => i.id === props.channelId);
     const getMembers = props.users.filter((i) =>
       getChannel?.members.includes(i.uid)
     );
 
+    const filterMessage = props.messages.filter(
+      (i) => i.channelId === props.channelId
+    );
+    const getImages = filterMessage.map((i) => i.images);
+    const getFiles = filterMessage.filter((i) => i?.file?.name);
+
     return {
       owner: getChannel?.owner,
       members: getMembers,
+      images: isEmpty(getImages) ? [] : flatten(getImages),
+      files: getFiles,
     };
-  };
+  }, [props]);
 
   return {
     ...props,

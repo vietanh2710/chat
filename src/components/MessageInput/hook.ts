@@ -55,11 +55,9 @@ const useMessageInput = (props: ReceivedProps) => {
       isNil(response.file)
     )
       return;
-
     if (!isNil(response.file)) {
       const storageRef = ref(storage, `files/${response.file?.name}`);
       const uploadTask = uploadBytesResumable(storageRef, response.file as any);
-
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -67,7 +65,6 @@ const useMessageInput = (props: ReceivedProps) => {
             const progress = Math.round(
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             );
-
             if (progress === 100) {
               addRecord(COLLECTION.MESSAGES, {
                 content: response.value,
@@ -89,7 +86,6 @@ const useMessageInput = (props: ReceivedProps) => {
         }
       );
     }
-
     if (
       (!isEmpty(response.value) || !isEmpty(response.images)) &&
       isNil(response.file)
@@ -103,7 +99,6 @@ const useMessageInput = (props: ReceivedProps) => {
         file: null,
       });
     }
-
     formik.resetForm();
     setImages([]);
   };
@@ -124,6 +119,10 @@ const useMessageInput = (props: ReceivedProps) => {
     message += emojiObject.emoji;
 
     formik.setFieldValue("value", message);
+  };
+
+  const onFileRemove = () => {
+    formik.setFieldValue("file", null);
   };
 
   const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -166,6 +165,7 @@ const useMessageInput = (props: ReceivedProps) => {
     isEmoji,
     inputHeight,
     inputFileRef,
+    onFileRemove,
     onUploadFile,
     onChangeFile,
     setEmoji,

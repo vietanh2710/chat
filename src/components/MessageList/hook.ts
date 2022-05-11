@@ -68,6 +68,7 @@ const useChannelMessage = (props: ReceivedProps) => {
     const link = document.createElement("a");
     link.download = name;
     link.href = uri;
+    link.target = "blank";
     link.click();
   };
 
