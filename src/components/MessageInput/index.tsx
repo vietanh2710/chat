@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import ImageUploading from "react-images-uploading";
 import Picker from "emoji-picker-react";
-import { isEmpty } from "lodash";
+import { isEmpty, isNil } from "lodash";
 
 import useMessageInput, { Props, ReceivedProps } from "./hook";
 import {
@@ -137,7 +137,7 @@ const MessageInputLayout: FC<Props> = ({
                         cursor:
                           isEmpty(formik.getFieldProps("value").value) &&
                           isEmpty(formik.getFieldProps("images").value) &&
-                          isEmpty(formik.getFieldProps("file").value)
+                          isNil(formik.getFieldProps("file").value)
                             ? "not-allowed"
                             : "pointer",
                       }}

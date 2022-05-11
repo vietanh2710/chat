@@ -113,7 +113,8 @@ export const MessageListContainer = styled(Col).attrs(
         .message {
           align-items: flex-end;
 
-          &-wrapper {
+          &-wrapper,
+          .message-file {
             margin-right: 0;
             margin-left: 50px;
           }
@@ -162,6 +163,12 @@ export const MessageListContainer = styled(Col).attrs(
         .message-file {
           display: flex;
           align-items: center;
+          border-radius: 8px;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          padding: 5px 10px;
+          font-size: 15px;
+          margin-left: 10px;
+          margin-right: 50px;
 
           img {
             margin-top: 3px;

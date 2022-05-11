@@ -1,6 +1,8 @@
-import { Dispatch, SetStateAction, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 import { Auth, Channels, Messages, Users, File } from "types";
+import { storage } from "services/firesbase";
 
 export type ReceivedProps = {
   showTabInfor: boolean;
@@ -62,18 +64,16 @@ const useChannelMessage = (props: ReceivedProps) => {
     };
   };
 
-  function downloadURI(uri: any, name: any) {
+  const downloadURI = (uri: string, name: string) => {
     const link = document.createElement("a");
     link.download = name;
     link.href = uri;
     link.click();
-  }
+  };
 
-  const downloadFile = (data: any) => {
-    const blob = new Blob([data], { type: data.type });
-    const url = window.URL.createObjectURL(blob);
-    downloadURI(url, data.name);
-    window.URL.revokeObjectURL(url);
+  const downloadFile = (props: File) => {
+    downloadURI(props.url, props.name);
+    window.URL.revokeObjectURL(props.url);
   };
 
   return {
