@@ -194,6 +194,10 @@ export const MessageListContainer = styled(Col).attrs(
             margin-left: 10px;
             margin-right: 50px;
             cursor: auto;
+
+            &.url {
+              border: none;
+            }
           }
         }
       }

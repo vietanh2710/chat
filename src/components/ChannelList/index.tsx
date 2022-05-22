@@ -1,11 +1,10 @@
 import { FC, memo } from "react";
-import moment from "moment";
 
 import { EDIT_ICON, SEARCH_ICON } from "assets";
-import { DATE_TIME_FORMAT } from "common/constant";
 import { CreateChannel } from "components";
 import { ChannelListContainer } from "./style";
 import useChannelList, { Props, ReceivedProps } from "./hook";
+import { calculateElapsedTime } from "common/date";
 
 const ChannelListView: FC<Props> = ({
   setChannelId,
@@ -80,7 +79,7 @@ const ChannelListView: FC<Props> = ({
               </div>
 
               <div className="last-time">
-                {moment.unix(i.createdAt).format(DATE_TIME_FORMAT.TIME)}
+                {calculateElapsedTime(i.createdAt)}
               </div>
             </div>
           );

@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 import { Auth, Channels, Messages, Users, File } from "types";
-import { storage } from "services/firesbase";
 
 export type ReceivedProps = {
   showTabInfor: boolean;
@@ -25,6 +23,10 @@ const useChannelMessage = (props: ReceivedProps) => {
     index: null,
   });
   const [heightWrapper, setHeightWrapper] = useState<number>();
+  const [images, setImages] = useState<any>({
+    open: false,
+    arr: [],
+  });
 
   const getUser = (uid: string) => {
     const result = props.users.find((item) => item.uid === uid);
@@ -77,11 +79,15 @@ const useChannelMessage = (props: ReceivedProps) => {
     window.URL.revokeObjectURL(props.url);
   };
 
+  console.log("images :>> ", images);
+
   return {
     ...props,
     currentMessage,
     heightWrapper,
     data,
+    images,
+    setImages,
     downloadFile,
     getProfile,
     getUser,

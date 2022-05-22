@@ -2,12 +2,15 @@ import { FC, memo } from "react";
 import moment from "moment";
 import { isEmpty } from "lodash";
 import { Col } from "antd";
+import { LinkPreview } from "@dhaiwat10/react-link-preview";
+import { ImageGroup, Image } from "react-fullscreen-image";
 
 import { ATTACH_ICON, INFO_ICON } from "assets";
 import { DATE_TIME_FORMAT } from "common/constant";
 import { MessageInput } from "components";
 import useChannelMessage, { Props, ReceivedProps } from "./hook";
 import { MessageListContainer } from "./style";
+import { isValidHttpUrl } from "common/url";
 
 const MessageListLayout: FC<Props> = ({
   showTabInfor,
@@ -15,7 +18,9 @@ const MessageListLayout: FC<Props> = ({
   heightWrapper,
   data,
   auth,
+  images,
   channelId,
+  setImages,
   downloadFile,
   getProfile,
   getUser,
@@ -79,6 +84,8 @@ const MessageListLayout: FC<Props> = ({
                 i.uid
               );
 
+              const isUrl = isValidHttpUrl(i.content);
+
               return (
                 <div className={`item ${isUser && "user"}`} key={index}>
                   <div className="item-wrapper">
@@ -98,7 +105,7 @@ const MessageListLayout: FC<Props> = ({
                     <div className="message">
                       {i.content && (
                         <div
-                          className="message-wrapper"
+                          className={`${isUrl && "url"} message-wrapper`}
                           onClick={() =>
                             setCurrentMessage({
                               open:
@@ -110,14 +117,33 @@ const MessageListLayout: FC<Props> = ({
                             })
                           }
                         >
-                          {i.content}
+                          {isUrl ? (
+                            <LinkPreview
+                              showLoader
+                              url={i.content}
+                              width={300}
+                              imageHeight={200}
+                              descriptionLength={50}
+                            />
+                          ) : (
+                            i.content
+                          )}
                         </div>
                       )}
 
                       {i.images && (
                         <div className="message-img">
                           {i.images.map((i, index: number) => (
-                            <img src={i} key={index} />
+                            <img
+                              src={i}
+                              key={index}
+                              onClick={() => {
+                                setImages({
+                                  open: true,
+                                  arr: [i],
+                                });
+                              }}
+                            />
                           ))}
                         </div>
                       )}
@@ -134,6 +160,7 @@ const MessageListLayout: FC<Props> = ({
                       )}
                     </div>
                   </div>
+
                   {currentMessage.open && currentMessage.index === index && (
                     <div className="message-time">
                       {!isUser && <span>{userName}</span>}{" "}
@@ -144,6 +171,33 @@ const MessageListLayout: FC<Props> = ({
               );
             })}
           </div>
+
+          {/* {images.arr && (
+            <ImageGroup>
+              <ul className="images">
+                {images.arr?.map((i: any) => (
+                  <li key={i}>
+                    <Image
+                      src={i}
+                      alt=""
+                      style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        height: "auto",
+                        width: "100%",
+                        objectFit: "scale-down",
+                        margin: "auto",
+                        zIndex: 10,
+                      }}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </ImageGroup>
+          )} */}
 
           <MessageInput
             setHeightWrapper={setHeightWrapper}
