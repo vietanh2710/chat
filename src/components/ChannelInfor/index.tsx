@@ -11,7 +11,7 @@ const ChannelInforView: FC<Props> = ({
   channelName,
   channelInfor,
 }) => {
-  const { members, owner, images, files } = channelInfor();
+  const { members, owner, images, links } = channelInfor();
 
   return (
     <>
@@ -65,8 +65,28 @@ const ChannelInforView: FC<Props> = ({
 
             <Panel header="Files and links" key="3" className="pannel-header">
               <div className="files-wrapper">
-                {files.map((i, index) => (
-                  <div key={index}>{i.file?.name}</div>
+                {links.map((i, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      display: "inline-block",
+                      width: 270,
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <a
+                      href={i.content}
+                      target="_blank."
+                      style={{
+                        color: "#000",
+                      }}
+                    >
+                      {i.content}
+                    </a>
+                  </div>
                 ))}
               </div>
             </Panel>

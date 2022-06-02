@@ -106,12 +106,12 @@ const MessageInputLayout: FC<Props> = ({
                       }}
                     />
 
-                    <img
+                    {/* <img
                       src={FOLDER_ICON}
                       alt=""
                       className="icon-folder"
                       onClick={onUploadFile}
-                    />
+                    /> */}
 
                     {isEmoji && (
                       <Picker

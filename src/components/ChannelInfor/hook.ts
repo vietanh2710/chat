@@ -1,5 +1,7 @@
+import { useCallback, useMemo } from "react";
 import { flatten, isEmpty } from "lodash";
-import { useCallback, useMemo, useState } from "react";
+
+import { isValidHttpUrl } from "common/url";
 import { Auth, Channels, Messages, Users } from "types";
 
 export type ReceivedProps = {
@@ -35,12 +37,14 @@ const useChannelInfor = (props: ReceivedProps) => {
     );
     const getImages = filterMessage.map((i) => i.images);
     const getFiles = filterMessage.filter((i) => i?.file?.name);
+    const getLinks = filterMessage.filter((i) => isValidHttpUrl(i.content));
 
     return {
       owner: getChannel?.owner,
       members: getMembers,
       images: isEmpty(getImages) ? [] : flatten(getImages),
       files: getFiles,
+      links: getLinks,
     };
   }, [props]);
 
